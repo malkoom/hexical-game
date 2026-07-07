@@ -4,30 +4,43 @@
 
 #include "GameScene.hpp"
 
-#include <iostream>
+#include <algorithm>
+
+#include "GameManager.hpp"
 
 void GameScene::init()
 {
-    std::cout << "Iniciando el juego";
-    // Primeras Formas
-    m_Shapes.emplace_back((Vector2){200, 400}, 20, 10);
-    m_Shapes.emplace_back((Vector2){400, 200}, 20, 10);
+    // Inicializar m_Shapes para que apunte a un nuevo vector de Shape
+    m_Shapes = gameManager.Shapes;
+
+    m_Shapes->emplace_back(Shape({1920 / 4.0f, 1920 / 2.0f}, 50.0f, 10.0f));
+    m_Shapes->emplace_back(Shape({1920 * 3.0f / 4.0f, 1920 / 2.0f}, 50.0f, 10.0f));
 }
 
-void GameScene::update()
+void GameScene::update(const Vector2& virtualMouse)
 {
-    m_Player.update();
+    m_Shooter.handleInput(virtualMouse);
+    m_Shooter.update();
 
-    for (auto& shape : m_Shapes) {
+    m_Shapes->erase(
+        std::remove_if(m_Shapes->begin(), m_Shapes->end(), [](const Shape& shape) {
+            return shape.Collided;
+        }),
+        m_Shapes->end()
+    );
+
+    for (auto& shape : *m_Shapes)
+    {
         shape.update();
     }
 }
 
-void GameScene::draw()
+void GameScene::draw(const Vector2& virtualMouse)
 {
-    m_Player.draw();
-
-    for (auto& shape : m_Shapes) {
+    for (auto& shape : *m_Shapes)
+    {
         shape.draw();
     }
+
+    m_Shooter.draw(virtualMouse);
 }

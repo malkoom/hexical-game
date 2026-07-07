@@ -14,18 +14,14 @@ add_subdirectory(${RAYLIB_PATH} ${CMAKE_BINARY_DIR}/raylib)
 # Definir nuestro ejecutable y sus archivos fuentes (.cpp)
 add_executable(${PROJECT_NAME}
     src/raylib_game.cpp
-        src/Player.cpp
-        src/Player.hpp
         src/Shape.cpp
         src/Shape.hpp
-        src/Bullet.cpp
-        src/Bullet.hpp
         src/GameManager.cpp
         src/GameManager.hpp
         src/GameScene.cpp
         src/GameScene.hpp
-        src/BulletPool.cpp
-        src/BulletPool.hpp
+        src/Shooter.cpp
+        src/Shooter.hpp
 )
 
 # Definir que estamos en Escritorio (Para los #ifdef PLATFORM_DESKTOP)

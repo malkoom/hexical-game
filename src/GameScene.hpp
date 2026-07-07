@@ -4,23 +4,21 @@
 
 #ifndef JUEGO_RAYLIB_GAMESCENE_HPP
 #define JUEGO_RAYLIB_GAMESCENE_HPP
-#include <vector>
-#include "Shape.hpp"
-#include "Player.hpp"
 
+#include <vector>
+#include <memory>
+#include "Shape.hpp"
+#include "Shooter.hpp"
 
 class GameScene {
 private:
-    std::pmr::vector<Shape> m_Shapes;
-    Player m_Player;
+    std::shared_ptr<std::vector<Shape>> m_Shapes;
+    Shooter m_Shooter{};
 
 public:
-    GameScene(Player player) : m_Player(player) {}
-
     void init();
-    void update();
-    void draw();
+    void update(const Vector2& virtualMouse);
+    void draw(const Vector2& virtualMouse);
 };
-
 
 #endif //JUEGO_RAYLIB_GAMESCENE_HPP

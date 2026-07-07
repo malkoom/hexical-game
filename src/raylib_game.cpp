@@ -11,6 +11,7 @@
 
 #include "raylib.h"
 #include "GameScene.hpp"
+#include "raymath.h"
 
 
 #if defined(PLATFORM_WEB)
@@ -84,7 +85,7 @@ int main(void)
     InitWindow(virtualWidth, virtualHeight, "raylib gamejam template");
     
     // TODO: Load resources / Initialize variables at this point
-    auto gameScene = new GameScene{Player{{virtualWidth/2, virtualHeight/2}, 20, 10}};
+    auto gameScene = new GameScene{};
     InitGame(gameScene);
 
     // Render texture to draw, enables screen scaling
@@ -97,7 +98,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
 #if defined(PLATFORM_WEB)
-    emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+    emscripten_set_main_loop_arg(UpdateDrawFrame, gameScene, 60, 1);
 #else
     SetTargetFPS(60);     // Set our game frames-per-second
     //--------------------------------------------------------------------------------------
@@ -142,8 +143,10 @@ void UpdateDrawFrame(GameScene* gameScene)
 
     // Calculamos cuánto debemos escalar manteniendo la relación de aspecto perfecta
     float scale = GetMin(windowWidth / virtualWidth, windowHeight / virtualHeight);
+    Vector2 mouse = GetMousePosition();
+    Vector2 virtualMouse = { (mouse.x - (windowWidth - virtualWidth * scale) * 0.5f) / scale, (mouse.y - (windowHeight - virtualHeight * scale) * 0.5f) / scale };
 
-    gameScene->update();
+    gameScene->update(virtualMouse);
 
     frameCounter++;
     //----------------------------------------------------------------------------------
@@ -156,7 +159,7 @@ void UpdateDrawFrame(GameScene* gameScene)
         ClearBackground(RAYWHITE);
         // TODO: Draw your game screen here
 
-        gameScene->draw();
+        gameScene->draw(virtualMouse);
 
 
         
@@ -189,7 +192,7 @@ void UpdateDrawFrame(GameScene* gameScene)
 
 float GetMin(float a, float b) { return (a < b) ? a : b; }
 
-bool IsOutOfBounds(const Vector2& position, float radius = 0.0f)
+bool IsOutOfBounds(const Vector2& position, float radius)
 {
     if (position.x + radius < 0 || position.x - radius > 1920 ||
         position.y + radius < 0 || position.y - radius > 1920)

@@ -6,6 +6,7 @@
 #define JUEGO_RAYLIB_SHAPE_HPP
 
 #include "raylib.h"
+#include "raymath.h"
 
 enum class ShapeType {
     TRIANGLE = 0,
@@ -17,12 +18,17 @@ enum class ShapeType {
 class Shape {
 private:
     Vector2 m_Position{};
+    Vector2 m_Direction{};
+    Vector2 m_Velocity{};
     ShapeType m_Type{ShapeType::TRIANGLE};
     float m_Size{3};
     float m_Speed {10};
+    float m_Friction{0.98f};
 
 public:
-    Shape(Vector2 position, float size, float speed) : m_Position(position), m_Type(ShapeType::TRIANGLE), m_Size(size), m_Speed(speed) {}
+    bool Collided {false};
+
+    Shape(Vector2 position, float size, float speed) : m_Position(position), m_Type(ShapeType::TRIANGLE), m_Size(size), m_Speed(speed), m_Velocity({0,0}) {}
 
     Vector2 getPosition() const {return this->m_Position;}
     float getSize() const {return this->m_Size;}
@@ -36,9 +42,8 @@ public:
     void draw();
 
     bool processCollisionWithShape(Shape& shape);
+    void shoot(const Vector2& releasePosition);
     bool processCollisionWithBullet();
     void advanceShape() { m_Type = static_cast<ShapeType>((static_cast<int>(m_Type) + 1)); }
 };
-
-
 #endif //JUEGO_RAYLIB_SHAPE_HPP
