@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/cmake_install.cmake",
+		"/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/raylib/cmake_install.cmake",
+		"/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/raylib/raylib/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

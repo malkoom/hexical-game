@@ -1,0 +1,1 @@
+/home/marc/emsdk/upstream/emscripten/em++ --shell-file=/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/src/minshell.html -sUSE_GLFW=3 -sASYNCIFY -sEXPORTED_RUNTIME_METHODS=ccall @CMakeFiles/juego_raylib.dir/objects1.rsp -o juego_raylib.html @CMakeFiles/juego_raylib.dir/linkLibs.rsp
