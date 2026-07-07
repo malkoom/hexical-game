@@ -4,7 +4,7 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_UNAME"
@@ -20,45 +20,23 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
     searched_directories:
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/uname"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/uname"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/uname"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/uname"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/uname"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/uname"
-      - "/home/marc/emsdk/uname"
-      - "/home/marc/emsdk/upstream/emscripten/uname"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/uname"
       - "/usr/local/bin/uname"
     found: "/usr/bin/uname"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
   -
     kind: "find-v1"
     backtrace:
       - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake:374 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:146 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:146 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "NODE_JS_EXECUTABLE"
@@ -75,61 +53,31 @@ events:
       - "nodejs"
       - "node"
     candidate_directories:
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/nodejs"
-      - "/home/marc/emsdk/nodejs"
-      - "/home/marc/emsdk/upstream/emscripten/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/nodejs"
       - "/usr/local/bin/nodejs"
       - "/usr/bin/nodejs"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/nodejs"
       - "/bin/nodejs"
       - "/sbin/nodejs"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/node"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/node"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/node"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/node"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/node"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/node"
-      - "/home/marc/emsdk/node"
-      - "/home/marc/emsdk/upstream/emscripten/node"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/node"
       - "/usr/local/bin/node"
     found: "/usr/bin/node"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
       CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
   -
     kind: "message-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:207 (message)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:207 (message)"
       - "CMakeLists.txt:2 (project)"
     message: |
       The target system is: Emscripten - 1 - x86
@@ -137,68 +85,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeUnixFindMake.cmake:5 (find_program)"
-      - "CMakeLists.txt:2 (project)"
-    mode: "program"
-    variable: "CMAKE_MAKE_PROGRAM"
-    description: "Path to a program."
-    settings:
-      SearchFramework: "NEVER"
-      SearchAppBundle: "NEVER"
-      CMAKE_FIND_USE_CMAKE_PATH: true
-      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-      CMAKE_FIND_USE_INSTALL_PREFIX: true
-    names:
-      - "gmake"
-      - "make"
-      - "smake"
-    candidate_directories:
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
-      - "/usr/local/bin/"
-      - "/usr/bin/"
-      - "/bin/"
-      - "/sbin/"
-    searched_directories:
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/gmake"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/sbin/gmake"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/gmake"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/bin/gmake"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/sbin/gmake"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader/gmake"
-      - "/home/marc/emsdk/gmake"
-      - "/home/marc/emsdk/upstream/emscripten/gmake"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/gmake"
-      - "/usr/local/bin/gmake"
-    found: "/usr/bin/gmake"
-    search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
-      ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
-        - "/usr/local/bin"
-        - "/usr/bin"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/"
-        - "/"
-      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot;/home/marc/emsdk/upstream/emscripten/cache/sysroot"
-  -
-    kind: "find-v1"
-    backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_STRIP"
@@ -216,35 +104,26 @@ events:
       - "strip"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/llvm-strip"
-      - "/home/marc/emsdk/llvm-strip"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/llvm-strip"
       - "/usr/local/bin/llvm-strip"
       - "/usr/bin/llvm-strip"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/llvm-strip"
       - "/bin/llvm-strip"
       - "/sbin/llvm-strip"
       - "/home/marc/emsdk/upstream/emscripten/strip"
-      - "/home/marc/emsdk/strip"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/strip"
       - "/usr/local/bin/strip"
     found: "/usr/bin/strip"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -252,8 +131,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_LINKER"
@@ -271,28 +150,20 @@ events:
       - "ld"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/ld.lld"
-      - "/home/marc/emsdk/ld.lld"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/ld.lld"
       - "/usr/local/bin/ld.lld"
     found: "/usr/bin/ld.lld"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -300,8 +171,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_OBJDUMP"
@@ -319,35 +190,26 @@ events:
       - "objdump"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/llvm-objdump"
-      - "/home/marc/emsdk/llvm-objdump"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/llvm-objdump"
       - "/usr/local/bin/llvm-objdump"
       - "/usr/bin/llvm-objdump"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/llvm-objdump"
       - "/bin/llvm-objdump"
       - "/sbin/llvm-objdump"
       - "/home/marc/emsdk/upstream/emscripten/objdump"
-      - "/home/marc/emsdk/objdump"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/objdump"
       - "/usr/local/bin/objdump"
     found: "/usr/bin/objdump"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -355,8 +217,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_OBJCOPY"
@@ -374,35 +236,26 @@ events:
       - "objcopy"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/llvm-objcopy"
-      - "/home/marc/emsdk/llvm-objcopy"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/llvm-objcopy"
       - "/usr/local/bin/llvm-objcopy"
       - "/usr/bin/llvm-objcopy"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/llvm-objcopy"
       - "/bin/llvm-objcopy"
       - "/sbin/llvm-objcopy"
       - "/home/marc/emsdk/upstream/emscripten/objcopy"
-      - "/home/marc/emsdk/objcopy"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/objcopy"
       - "/usr/local/bin/objcopy"
     found: "/usr/bin/objcopy"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -410,8 +263,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_READELF"
@@ -429,35 +282,26 @@ events:
       - "readelf"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/llvm-readelf"
-      - "/home/marc/emsdk/llvm-readelf"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/llvm-readelf"
       - "/usr/local/bin/llvm-readelf"
       - "/usr/bin/llvm-readelf"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/llvm-readelf"
       - "/bin/llvm-readelf"
       - "/sbin/llvm-readelf"
       - "/home/marc/emsdk/upstream/emscripten/readelf"
-      - "/home/marc/emsdk/readelf"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/readelf"
       - "/usr/local/bin/readelf"
     found: "/usr/bin/readelf"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -465,8 +309,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_DLLTOOL"
@@ -484,38 +328,30 @@ events:
       - "dlltool"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/llvm-dlltool"
-      - "/home/marc/emsdk/llvm-dlltool"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/llvm-dlltool"
       - "/usr/local/bin/llvm-dlltool"
       - "/usr/bin/llvm-dlltool"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/llvm-dlltool"
       - "/bin/llvm-dlltool"
       - "/sbin/llvm-dlltool"
       - "/home/marc/emsdk/upstream/emscripten/dlltool"
-      - "/home/marc/emsdk/dlltool"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/dlltool"
       - "/usr/local/bin/dlltool"
       - "/usr/bin/dlltool"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/dlltool"
       - "/bin/dlltool"
       - "/sbin/dlltool"
     found: false
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -523,8 +359,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_ADDR2LINE"
@@ -542,35 +378,26 @@ events:
       - "addr2line"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/llvm-addr2line"
-      - "/home/marc/emsdk/llvm-addr2line"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/llvm-addr2line"
       - "/usr/local/bin/llvm-addr2line"
       - "/usr/bin/llvm-addr2line"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/llvm-addr2line"
       - "/bin/llvm-addr2line"
       - "/sbin/llvm-addr2line"
       - "/home/marc/emsdk/upstream/emscripten/addr2line"
-      - "/home/marc/emsdk/addr2line"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/addr2line"
       - "/usr/local/bin/addr2line"
     found: "/usr/bin/addr2line"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -578,8 +405,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:200 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_TAPI"
@@ -596,31 +423,24 @@ events:
       - "tapi"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/tapi"
-      - "/home/marc/emsdk/tapi"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/tapi"
       - "/usr/local/bin/tapi"
       - "/usr/bin/tapi"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/tapi"
       - "/bin/tapi"
       - "/sbin/tapi"
     found: false
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -628,8 +448,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:50 (find_program)"
-      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Compiler/Clang-FindBinUtils.cmake:50 (find_program)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeDetermineCCompiler.cmake:201 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "program"
     variable: "CMAKE_C_COMPILER_CLANG_SCAN_DEPS"
@@ -649,49 +469,38 @@ events:
       - "clang-scan-deps"
     candidate_directories:
       - "/home/marc/emsdk/upstream/emscripten/"
-      - "/home/marc/emsdk/"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/"
       - "/usr/local/bin/"
       - "/usr/bin/"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/"
       - "/bin/"
       - "/sbin/"
     searched_directories:
       - "/home/marc/emsdk/upstream/emscripten/clang-scan-deps-23.0"
-      - "/home/marc/emsdk/clang-scan-deps-23.0"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/clang-scan-deps-23.0"
       - "/usr/local/bin/clang-scan-deps-23.0"
       - "/usr/bin/clang-scan-deps-23.0"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/clang-scan-deps-23.0"
       - "/bin/clang-scan-deps-23.0"
       - "/sbin/clang-scan-deps-23.0"
       - "/home/marc/emsdk/upstream/emscripten/clang-scan-deps-23"
-      - "/home/marc/emsdk/clang-scan-deps-23"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/clang-scan-deps-23"
       - "/usr/local/bin/clang-scan-deps-23"
       - "/usr/bin/clang-scan-deps-23"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/clang-scan-deps-23"
       - "/bin/clang-scan-deps-23"
       - "/sbin/clang-scan-deps-23"
       - "/home/marc/emsdk/upstream/emscripten/clang-scan-deps23"
-      - "/home/marc/emsdk/clang-scan-deps23"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/clang-scan-deps23"
       - "/usr/local/bin/clang-scan-deps23"
       - "/usr/bin/clang-scan-deps23"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/clang-scan-deps23"
       - "/bin/clang-scan-deps23"
       - "/sbin/clang-scan-deps23"
       - "/home/marc/emsdk/upstream/emscripten/clang-scan-deps"
-      - "/home/marc/emsdk/clang-scan-deps"
-      - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin/clang-scan-deps"
       - "/usr/local/bin/clang-scan-deps"
     found: "/usr/bin/clang-scan-deps"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
         - "/"
@@ -699,8 +508,8 @@ events:
   -
     kind: "find-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/Platform/Emscripten.cmake:6 (find_file)"
-      - "/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
       - "CMakeLists.txt:2 (project)"
     mode: "file"
     variable: "_EMSCRIPTEN_PLATFORM_MODULE"
@@ -719,15 +528,10 @@ events:
       - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
     found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
     search_context:
-      ENV{CMAKE_PREFIX_PATH}:
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/lib/VulkanLoader"
       ENV{PATH}:
-        - "/home/marc/emsdk"
-        - "/home/marc/emsdk/upstream/emscripten"
-        - "/home/marc/vulkansdk/1.4.350.1/x86_64/bin"
         - "/usr/local/bin"
         - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/"
@@ -736,20 +540,19 @@ events:
   -
     kind: "try_compile-v1"
     backtrace:
-      - "/usr/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
-      - "/usr/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
-      - "/usr/share/cmake/Modules/CheckCCompilerFlag.cmake:105 (cmake_check_compiler_flag)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CheckCCompilerFlag.cmake:105 (cmake_check_compiler_flag)"
       - "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib/cmake/AddIfFlagCompiles.cmake:3 (CHECK_C_COMPILER_FLAG)"
       - "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib/cmake/CompilerFlags.cmake:5 (add_if_flag_compiles)"
       - "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib/CMakeLists.txt:27 (include)"
     checks:
       - "Performing Test COMPILER_HAS_THOSE_TOGGLES"
     directories:
-      source: "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-h1U5s5"
-      binary: "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-h1U5s5"
+      source: "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-eu4ttA"
+      binary: "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-eu4ttA"
     cmakeVariables:
       CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/home/marc/emsdk/upstream/emscripten/emscan-deps"
-      CMAKE_CXX_STDLIB_MODULES_JSON: ""
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
       CMAKE_EXE_LINKER_FLAGS: ""
@@ -758,17 +561,221 @@ events:
       variable: "COMPILER_HAS_THOSE_TOGGLES"
       cached: true
       stdout: |
-        Change Dir: '/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-h1U5s5'
+        Change Dir: '/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-eu4ttA'
         
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f730f/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_f730f.dir/build.make CMakeFiles/cmTC_f730f.dir/build
-        gmake[1]: Entering directory '/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-h1U5s5'
-        Building C object CMakeFiles/cmTC_f730f.dir/src.c.o
-        /home/marc/emsdk/upstream/emscripten/emcc -DCOMPILER_HAS_THOSE_TOGGLES  -Werror=pointer-arith -MD -MT CMakeFiles/cmTC_f730f.dir/src.c.o -MF CMakeFiles/cmTC_f730f.dir/src.c.o.d -o CMakeFiles/cmTC_f730f.dir/src.c.o -c /home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-h1U5s5/src.c
-        Linking C executable cmTC_f730f.js
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f730f.dir/link.txt --verbose=1
-        /home/marc/emsdk/upstream/emscripten/emcc @CMakeFiles/cmTC_f730f.dir/objects1.rsp -o cmTC_f730f.js
-        gmake[1]: Leaving directory '/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-h1U5s5'
+        Run Build Command(s): /home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -v cmTC_f438f
+        [1/2] /home/marc/emsdk/upstream/emscripten/emcc -DCOMPILER_HAS_THOSE_TOGGLES  -fcolor-diagnostics   -Werror=pointer-arith -MD -MT CMakeFiles/cmTC_f438f.dir/src.c.o -MF CMakeFiles/cmTC_f438f.dir/src.c.o.d -o CMakeFiles/cmTC_f438f.dir/src.c.o -c /home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib-gamejam-project/build_web/CMakeFiles/CMakeScratch/TryCompile-eu4ttA/src.c
+        [2/2] : && /home/marc/emsdk/upstream/emscripten/emcc   CMakeFiles/cmTC_f438f.dir/src.c.o -o cmTC_f438f.js   && :
         
       exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "_EMSCRIPTEN_PLATFORM_MODULE"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Platform/Emscripten.cmake"
+    candidate_directories:
+      - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
+    found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
+      CMAKE_INSTALL_PREFIX: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/"
+      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "_EMSCRIPTEN_PLATFORM_MODULE"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Platform/Emscripten.cmake"
+    candidate_directories:
+      - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
+    found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
+      CMAKE_INSTALL_PREFIX: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/"
+      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "_EMSCRIPTEN_PLATFORM_MODULE"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Platform/Emscripten.cmake"
+    candidate_directories:
+      - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
+    found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
+      CMAKE_INSTALL_PREFIX: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/"
+      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "_EMSCRIPTEN_PLATFORM_MODULE"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Platform/Emscripten.cmake"
+    candidate_directories:
+      - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
+    found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
+      CMAKE_INSTALL_PREFIX: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/"
+      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "_EMSCRIPTEN_PLATFORM_MODULE"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Platform/Emscripten.cmake"
+    candidate_directories:
+      - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
+    found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
+      CMAKE_INSTALL_PREFIX: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/"
+      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+...
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/Platform/Emscripten.cmake:6 (find_file)"
+      - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake:32 (include)"
+      - "CMakeLists.txt:2 (project)"
+    mode: "file"
+    variable: "_EMSCRIPTEN_PLATFORM_MODULE"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "Platform/Emscripten.cmake"
+    candidate_directories:
+      - "/home/marc/emsdk/upstream/emscripten/cmake/Modules/"
+    found: "/home/marc/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    search_context:
+      ENV{PATH}:
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/home/marc/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64"
+      CMAKE_INSTALL_PREFIX: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/"
+      CMAKE_FIND_ROOT_PATH: "/home/marc/emsdk/upstream/emscripten/cache/sysroot"
 ...

@@ -10,6 +10,8 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#include "GameScene.hpp"
+
 
 #if defined(PLATFORM_WEB)
     #include <emscripten/emscripten.h>      // Emscripten library
@@ -46,18 +48,27 @@ typedef enum {
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
-static const int screenWidth = 720;
-static const int screenHeight = 720;
+static const int virtualWidth = 1920;
+static const int virtualHeight = 1920;
 
-static RenderTexture2D target = { 0 };  // Render texture to render our game
-static int frameCounter = 0;
+static RenderTexture2D target{0};  // Render texture to render our game
+static int frameCounter{0};
 
 // TODO: Define global variables here, recommended to make them static
 
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-static void UpdateDrawFrame(void);      // Update and Draw one frame
+static void InitGame(GameScene* gameScene);            // Initialize game
+static void UpdateDrawFrame(GameScene* gameScene);      // Update and Draw one frame
+
+//----------------------------------------------------------------------------------
+// Extra
+//----------------------------------------------------------------------------------
+float GetMin(float a, float b);
+bool IsOutOfBounds(const Vector2& position, float radius = 0.0f);
+
+
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -70,14 +81,20 @@ int main(void)
 
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(screenWidth, screenHeight, "raylib gamejam template");
+    InitWindow(virtualWidth, virtualHeight, "raylib gamejam template");
     
     // TODO: Load resources / Initialize variables at this point
-    
+    auto gameScene = new GameScene{Player{{virtualWidth/2, virtualHeight/2}, 20, 10}};
+    InitGame(gameScene);
+
     // Render texture to draw, enables screen scaling
     // NOTE: If screen is scaled, mouse input should be scaled proportionally
-    target = LoadRenderTexture(screenWidth, screenHeight);
+    target = LoadRenderTexture(virtualWidth, virtualHeight);
     SetTextureFilter(target.texture, TEXTURE_FILTER_BILINEAR);
+
+
+
+    //--------------------------------------------------------------------------------------
 
 #if defined(PLATFORM_WEB)
     emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
@@ -88,7 +105,7 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button
     {
-        UpdateDrawFrame();
+        UpdateDrawFrame(gameScene);
     }
 #endif
 
@@ -97,6 +114,7 @@ int main(void)
     UnloadRenderTexture(target);
     
     // TODO: Unload all loaded resources at this point
+    delete gameScene;
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -107,13 +125,26 @@ int main(void)
 //--------------------------------------------------------------------------------------------
 // Module Functions Definition
 //--------------------------------------------------------------------------------------------
+// Init Game
+void InitGame(GameScene* gameScene)
+{
+    gameScene->init();
+}
+
 // Update and draw frame
-void UpdateDrawFrame(void)
+void UpdateDrawFrame(GameScene* gameScene)
 {
     // Update
     //----------------------------------------------------------------------------------
     // TODO: Update variables / Implement example logic at this point
-   
+    float windowWidth = (float)GetScreenWidth();
+    float windowHeight = (float)GetScreenHeight();
+
+    // Calculamos cuánto debemos escalar manteniendo la relación de aspecto perfecta
+    float scale = GetMin(windowWidth / virtualWidth, windowHeight / virtualHeight);
+
+    gameScene->update();
+
     frameCounter++;
     //----------------------------------------------------------------------------------
 
@@ -123,19 +154,11 @@ void UpdateDrawFrame(void)
     // it could be useful for scaling or further shader postprocessing
     BeginTextureMode(target);
         ClearBackground(RAYWHITE);
-        
         // TODO: Draw your game screen here
 
-        DrawRectangle(70, 90, 200, 200, BLACK);
-        DrawRectangle(70 + 16, 90 + 16, 200 - 32, 200 - 32, RAYWHITE);
-        DrawText("raylib", 70 + 200 - MeasureText("raylib", 40) - 32, 90 + 200 - 40 - 24, 40, BLACK);
+        gameScene->draw();
 
-        DrawText("6.x", 290, 90 - 26, 280, BLACK);
-        DrawText("GAMEJAM", 70, 90 + 210, 120, MAROON);
 
-        if ((frameCounter/20)%2) DrawText("are you ready?", 160, 500, 50, BLACK);
-        
-        DrawRectangleLinesEx((Rectangle){ 0, 0, screenWidth, screenHeight }, 16, BLACK);
         
     EndTextureMode();
     
@@ -144,11 +167,34 @@ void UpdateDrawFrame(void)
         ClearBackground(RAYWHITE);
         
         // Draw render texture to screen, scaled if required
-        DrawTexturePro(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height }, 
-            (Rectangle){ 0, 0, (float)target.texture.width, (float)target.texture.height }, (Vector2){ 0, 0 }, 0.0f, WHITE);
+    DrawTexturePro(
+        target.texture,
+        (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height },
+        (Rectangle){
+            (windowWidth - ((float)virtualWidth * scale)) * 0.5f,
+            (windowHeight - ((float)virtualHeight * scale)) * 0.5f,
+            (float)virtualWidth * scale,
+            (float)virtualHeight * scale
+        },
+        (Vector2){ 0, 0 },
+        0.0f,
+        WHITE
+    );
 
         // TODO: Draw everything that requires to be drawn at this point, maybe UI?
 
     EndDrawing();
     //----------------------------------------------------------------------------------  
+}
+
+float GetMin(float a, float b) { return (a < b) ? a : b; }
+
+bool IsOutOfBounds(const Vector2& position, float radius = 0.0f)
+{
+    if (position.x + radius < 0 || position.x - radius > 1920 ||
+        position.y + radius < 0 || position.y - radius > 1920)
+    {
+        return true;
+    }
+    return false;
 }
