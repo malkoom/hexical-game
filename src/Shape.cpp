@@ -4,32 +4,40 @@
 
 #include "Shape.hpp"
 
-#include "GameManager.hpp"
+#include "managers/GameManager.hpp"
 #include "raymath.h"
-#include "GameManager.hpp"
+#include "managers/GameManager.hpp"
+
+bool IsOutOfBounds(const Vector2& position, float radius);
 
 void Shape::update()
 {
+    if (Dead) return;
+
     m_Position = Vector2Add(m_Position, m_Velocity);
     m_Velocity = Vector2Scale(m_Velocity, m_Friction);
 
-    if (!Vector2Equals(m_Velocity, Vector2Zero())) {
-        if (gameManager.Shapes) { // Añadir verificación de nullptr
-            for (auto& other : *gameManager.Shapes) {
+    if (IsOutOfBounds(m_Position, m_Size)) Dead = true;
 
-                if (&other == this) continue;
+    if (m_Velocity.x != 0.0f || m_Velocity.y != 0.0f) {
 
-                if (CheckCollisionCircles(m_Position, m_Size, other.m_Position, other.m_Size))
-                     processCollisionWithShape(other);
+        for (auto& other : s_GameManager.Shapes) {
+
+            if (&other == this) continue;
+
+            if (CheckCollisionCircles(m_Position, m_Size, other.m_Position, other.m_Size)) {
+                if (m_Type == other.m_Type) {
+                    processCollisionWithEqualShape(other);
+                    break;
+                } else if (m_Type < other.m_Type){
+                    // Lógica rebote
+                }
             }
-        } else {
-            // Si llega aquí, gameManager.Shapes es nullptr
-            TraceLog(LOG_ERROR, "ERROR: gameManager.Shapes es nullptr en Shape::update()!");
         }
     }
 }
 
-bool Shape::processCollisionWithShape(Shape &shape)
+bool Shape::processCollisionWithEqualShape(Shape &shape)
 {
     // Obtenemos el vector de distancia entre los dos centros
     Vector2 normal = Vector2Subtract(shape.m_Position, m_Position);
@@ -52,17 +60,15 @@ bool Shape::processCollisionWithShape(Shape &shape)
         shape.m_Position = Vector2Add(shape.m_Position, Vector2Scale(normal, overlap * 0.5f));
     }
 
-    // 2. REACCIÓN DE FÍSICAS (Frenar o rebotar)
-    // Al chocar, ambas pierden su velocidad inmediatamente para romper el bucle de movimiento
+    // Físicas
+    // Al chocar, la otra gana la velocidad y esta la pierde
+    shape.m_Velocity = m_Velocity;
     m_Velocity = Vector2Zero();
-    shape.m_Velocity = Vector2Zero();
 
-    // 3. LÓGICA DEL JUEGO (Merge / Subir de nivel)
+    // 3. Figura aumenta
     TraceLog(LOG_INFO, "¡Figuras separadas y colisión resuelta!");
-
-    // Aquí puedes llamar al operador ++ de tu enum para evolucionarla
-
     shape.advanceShape();
+
     this->Collided = true;
 
     return true;
@@ -76,13 +82,6 @@ void Shape::shoot(const Vector2 &releasePosition)
     m_Velocity = Vector2Scale(direction, force);
 }
 
-bool Shape::processCollisionWithBullet()
-{
-    // Para simplificar todas las colisiones se evaluarán con círculos
-
-}
-
-
 void Shape::draw()
 {
     switch (m_Type) {
@@ -90,11 +89,20 @@ void Shape::draw()
             DrawTriangle({m_Position.x, m_Position.y - m_Size / 2.0f},
                 {m_Position.x - m_Size / 2.0f, m_Position.y + m_Size / 2.0f},
                 {m_Position.x + m_Size / 2.0f, m_Position.y + m_Size / 2.0f},
-                DARKGREEN);
+                GetColor(0x46425eff));
             break;
-        case(ShapeType::SQUARE):
+        case(ShapeType::SQUARE): {
             float halfSize = m_Size / 2.0f;  // Centro del cuadrado es el m_Position
-            DrawRectangle(m_Position.x - halfSize, m_Position.y - halfSize, m_Size, m_Size, DARKPURPLE);
+            DrawRectangle(m_Position.x - halfSize, m_Position.y - halfSize, m_Size, m_Size, GetColor(0x15788cff));
+        }
+            break;
+        case(ShapeType::PENTAGON):
+            DrawPoly(m_Position, 5, m_Size, 0, GetColor(0x00b9beff));
+            break;
+        case(ShapeType::HEXAGON):
+            DrawPoly(m_Position, 6, m_Size, 0, GetColor(0xff6973ff));
+            break;
+        default:
             break;
     }
 }

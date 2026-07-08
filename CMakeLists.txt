@@ -16,12 +16,23 @@ add_executable(${PROJECT_NAME}
     src/raylib_game.cpp
         src/Shape.cpp
         src/Shape.hpp
-        src/GameManager.cpp
-        src/GameManager.hpp
-        src/GameScene.cpp
-        src/GameScene.hpp
+        src/managers/GameManager.cpp
+        src/managers/GameManager.hpp
+        src/scenes/GameScene.cpp
+        src/scenes/GameScene.hpp
         src/Shooter.cpp
         src/Shooter.hpp
+        external/raygui.h
+        src/scenes/Scene.hpp
+        src/scenes/MenuScene.cpp
+        src/scenes/MenuScene.hpp
+        src/Button.cpp
+        src/Button.hpp
+        src/managers/SceneManager.hpp
+        src/scenes/Sprite.cpp
+        src/scenes/Sprite.hpp
+        src/managers/GameUIManager.cpp
+        src/managers/GameUIManager.hpp
 )
 
 # Definir que estamos en Escritorio (Para los #ifdef PLATFORM_DESKTOP)
@@ -48,4 +59,18 @@ if(EMSCRIPTEN)
         "-sUSE_GLFW=3"
         "-sASYNCIFY"
     )
+endif()
+
+set(ASSETS_DIR "${CMAKE_SOURCE_DIR}/resources")
+
+if(EXISTS ${ASSETS_DIR})
+    add_custom_command(
+            TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${ASSETS_DIR}
+            $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+            COMMENT "Copiando assets al directorio de salida..."
+    )
+else()
+    message(WARNING "¡Atención! No se encontró la carpeta de assets en: ${ASSETS_DIR}")
 endif()

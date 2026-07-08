@@ -10,8 +10,14 @@
 ********************************************************************************************/
 
 #include "raylib.h"
-#include "GameScene.hpp"
+#include "scenes/GameScene.hpp"
+#include "scenes/MenuScene.hpp"
 #include "raymath.h"
+#define RAYGUI_IMPLEMENTATION
+#include <cstdint>
+
+#include "../external/raygui.h"
+#include "managers/SceneManager.hpp"
 
 
 #if defined(PLATFORM_WEB)
@@ -60,8 +66,8 @@ static int frameCounter{0};
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-static void InitGame(GameScene* gameScene);            // Initialize game
-static void UpdateDrawFrame(GameScene* gameScene);      // Update and Draw one frame
+static void InitGame(Scene* scene);            // Initialize game
+static void UpdateDrawFrame();      // Update and Draw one frame
 
 //----------------------------------------------------------------------------------
 // Extra
@@ -76,17 +82,17 @@ bool IsOutOfBounds(const Vector2& position, float radius = 0.0f);
 //------------------------------------------------------------------------------------
 int main(void)
 {
-#if !defined(_DEBUG)
-    SetTraceLogLevel(LOG_NONE);         // Disable raylib trace log messages
-#endif
+    SetTraceLogLevel(LOG_ALL);         // Disable raylib trace log messages
 
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(virtualWidth, virtualHeight, "raylib gamejam template");
+    InitWindow(virtualWidth, virtualHeight, "Hexical");
     
     // TODO: Load resources / Initialize variables at this point
-    auto gameScene = new GameScene{};
-    InitGame(gameScene);
+    s_SceneManager.pushScene(new MenuScene{});
+    s_SceneManager.pushScene(new GameScene{});
+
+    InitGame(s_SceneManager.getCurrentScene());
 
     // Render texture to draw, enables screen scaling
     // NOTE: If screen is scaled, mouse input should be scaled proportionally
@@ -98,7 +104,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
 #if defined(PLATFORM_WEB)
-    emscripten_set_main_loop_arg(UpdateDrawFrame, gameScene, 60, 1);
+    emscripten_set_main_loop_arg(UpdateDrawFrame, (void*)gameScene, 60, 1);
 #else
     SetTargetFPS(60);     // Set our game frames-per-second
     //--------------------------------------------------------------------------------------
@@ -106,7 +112,7 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button
     {
-        UpdateDrawFrame(gameScene);
+        UpdateDrawFrame();
     }
 #endif
 
@@ -115,7 +121,6 @@ int main(void)
     UnloadRenderTexture(target);
     
     // TODO: Unload all loaded resources at this point
-    delete gameScene;
 
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
@@ -127,14 +132,16 @@ int main(void)
 // Module Functions Definition
 //--------------------------------------------------------------------------------------------
 // Init Game
-void InitGame(GameScene* gameScene)
+void InitGame(Scene* scene)
 {
-    gameScene->init();
+    scene->init();
 }
 
 // Update and draw frame
-void UpdateDrawFrame(GameScene* gameScene)
+void UpdateDrawFrame()
 {
+
+
     // Update
     //----------------------------------------------------------------------------------
     // TODO: Update variables / Implement example logic at this point
@@ -146,7 +153,7 @@ void UpdateDrawFrame(GameScene* gameScene)
     Vector2 mouse = GetMousePosition();
     Vector2 virtualMouse = { (mouse.x - (windowWidth - virtualWidth * scale) * 0.5f) / scale, (mouse.y - (windowHeight - virtualHeight * scale) * 0.5f) / scale };
 
-    gameScene->update(virtualMouse);
+    s_SceneManager.getCurrentScene()->update(virtualMouse);
 
     frameCounter++;
     //----------------------------------------------------------------------------------
@@ -156,13 +163,12 @@ void UpdateDrawFrame(GameScene* gameScene)
     // Render game screen to a texture, 
     // it could be useful for scaling or further shader postprocessing
     BeginTextureMode(target);
-        ClearBackground(RAYWHITE);
+        ClearBackground(GetColor(0xffeeccff));
         // TODO: Draw your game screen here
 
-        gameScene->draw(virtualMouse);
+        s_SceneManager.getCurrentScene()->draw(virtualMouse);
 
 
-        
     EndTextureMode();
     
     // Render to screen (main framebuffer)

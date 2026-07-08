@@ -27,23 +27,29 @@ private:
 
 public:
     bool Collided {false};
+    bool Dead {false};
 
-    Shape(Vector2 position, float size, float speed) : m_Position(position), m_Type(ShapeType::TRIANGLE), m_Size(size), m_Speed(speed), m_Velocity({0,0}) {}
+    Shape(Vector2 position, float size, float speed, ShapeType shapeType = ShapeType::TRIANGLE) : m_Position(position), m_Type(shapeType), m_Size(size), m_Speed(speed), m_Velocity({0,0}) {}
 
     Vector2 getPosition() const {return this->m_Position;}
+    Vector2 getVelocity() const {return this->m_Velocity;}
     float getSize() const {return this->m_Size;}
     float getSpeed() const {return this->m_Speed;}
+    ShapeType getType() const {return this->m_Type;}
+
 
     void setPosition(const Vector2& position) {this->m_Position = position;}
+    void setVelocity(const Vector2& velocity) {this->m_Velocity = velocity;}
     void setSize(float size) {this->m_Size = size;}
     void setSpeed(float speed) {this->m_Speed = speed;}
+    void setType(ShapeType type) {this->m_Type = type;}
+
 
     void update();
     void draw();
 
-    bool processCollisionWithShape(Shape& shape);
+    bool processCollisionWithEqualShape(Shape& shape);
     void shoot(const Vector2& releasePosition);
-    bool processCollisionWithBullet();
     void advanceShape() { m_Type = static_cast<ShapeType>((static_cast<int>(m_Type) + 1)); }
 };
 #endif //JUEGO_RAYLIB_SHAPE_HPP

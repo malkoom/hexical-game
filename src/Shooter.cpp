@@ -4,28 +4,24 @@
 
 #include "Shooter.hpp"
 
-#include "GameManager.hpp"
+#include "managers/GameManager.hpp"
 
 void Shooter::handleInput(const Vector2& virtualMouse)
 {
-    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !m_IsAiming)
-    {
+    if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !m_IsAiming) {
         m_IsAiming = true;
         m_MousePressPosition = virtualMouse;
 
-        if (gameManager.Shapes) { // Añadir verificación de nullptr
-            for (auto& shape : *gameManager.Shapes) {
-                if (CheckCollisionPointCircle(virtualMouse, shape.getPosition(), shape.getSize())) {
-                    m_CurrentShape = &shape;
-                    break;
-                }
+        for (auto& shape : s_GameManager.Shapes) {
+            if (CheckCollisionPointCircle(virtualMouse, shape.getPosition(), shape.getSize())) {
+                m_CurrentShape = &shape;
+                break;
+            } else {
+                // Si llega aquí, gameManager.Shapes es nullptr
+                TraceLog(LOG_ERROR, "ERROR: gameManager.Shapes es nullptr en Shooter::handleInput()!");
             }
-        } else {
-            // Si llega aquí, gameManager.Shapes es nullptr
-            TraceLog(LOG_ERROR, "ERROR: gameManager.Shapes es nullptr en Shooter::handleInput()!");
         }
     }
-
 
 
     if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON) && m_IsAiming)
