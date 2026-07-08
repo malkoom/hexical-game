@@ -64,7 +64,7 @@ jobs:
 
     - name: Build Product
       run: |
-        cd ${{ env.PROJECT_REPO_NAME }}/src
+        cd ${{ env.PROJECT_REPO_NAME }}
         make PLATFORM=PLATFORM_WEB BUILD_MODE=RELEASE EMSDK_PATH="D:/a/${{ env.PROJECT_REPO_NAME }}/${{ env.PROJECT_REPO_NAME }}/emsdk-cache/emsdk-main" PROJECT_BUILD_PATH=. RAYLIB_PATH=../../raylib -B
 
     - name: Generate Artifacts
