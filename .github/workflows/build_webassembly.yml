@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main # 👈 Asegura que se despliega solo cuando pushees a tu rama principal
+      - main
     paths:
       - 'src/**'
       - 'resources/**'
@@ -15,8 +15,8 @@ on:
 
 permissions:
   contents: write
-  pages: write      # 👈 OBLIGATORIO: Permiso para escribir en GitHub Pages
-  id-token: write   # 👈 OBLIGATORIO: Requerido para la autenticación del despliegue
+  pages: write      # Requerido para escribir en GitHub Pages
+  id-token: write   # Requerido para la autenticación segura del despliegue
 
 jobs:
   build:
@@ -31,17 +31,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Checkout raylib repo at the same level
+
+      # 1. Descargamos raylib dentro del espacio permitido por seguridad
+      - name: Checkout raylib repo
         uses: actions/checkout@v4
         with:
           repository: raysan5/raylib
-          path: ../raylib # 👈 Esto lo clona justo al mismo nivel que tu proyecto, imitando tu PC
+          path: raylib_tmp
+
+      # 2. Reubicamos raylib un nivel arriba para imitar la jerarquía de tu Fedora local
+      - name: Move raylib up one level
+        run: |
+          move raylib_tmp ..\raylib
+        shell: cmd
 
       - name: Setup emsdk
         uses: emscripten-core/setup-emsdk@v11
         with:
           version: 3.1.64
-          # Cache eliminada para evitar congelamientos en Windows
+          # Cache omitida para evitar bloqueos del backend de almacenamiento
 
       - name: Setup Release Paths (Only on Release)
         run: |
@@ -69,25 +77,23 @@ jobs:
           if exist README.md copy /Y README.md ${{ env.PROJECT_RELEASE_PATH }}\README.md
           if exist LICENSE copy /Y LICENSE ${{ env.PROJECT_RELEASE_PATH }}\LICENSE
           
-          # Guardamos una copia en zip por si la quieres descargar desde el panel
+          # Comprimimos la build en un zip por seguridad
           7z a .\${{ env.PROJECT_RELEASE_PATH }}.zip .\${{ env.PROJECT_RELEASE_PATH }}\*
         shell: cmd
 
-      # ==== PASOS NUEVOS PARA GITHUB PAGES ====
+      # ==== DESPLIEGUE AUTOMÁTICO EN GITHUB PAGES ====
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Le decimos que suba el contenido de la carpeta web que acabamos de rellenar
           path: ./${{ env.PROJECT_RELEASE_PATH }}
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        # Solo hacemos el despliegue web si venimos de un push normal o release, no en entornos de pruebas raros
         if: github.ref == 'refs/heads/main' || github.event_name == 'release'
 
-      # ========================================
+      # ===============================================
 
       - name: Upload Zip to Dashboard
         uses: actions/upload-artifact@v4
