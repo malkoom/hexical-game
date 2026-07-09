@@ -8,7 +8,8 @@
 
 void MenuScene::init()
 {
-    GuiSetStyle(DEFAULT, TEXT_SIZE, 48); // Prueba con valores entre 40 y 60
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 48);
+    m_PlayBtn.setPosition({(float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2});
 }
 
 void MenuScene::update(const Vector2 &virtualMouse)

@@ -23,6 +23,11 @@ public:
 
     ~Button() = default;
 
+    Vector2 getPosition() const { return {m_Rectangle.x + m_Rectangle.width / 2, m_Rectangle.y + m_Rectangle.height / 2};}
+
+    void setPosition(const Vector2 &position) { m_Rectangle.x = position.x - m_Rectangle.width / 2; m_Rectangle.y = position.y - m_Rectangle.height / 2;};
+    void setSize(const Vector2 &size);
+
     void draw();
     bool isPressed();
 

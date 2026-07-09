@@ -5,6 +5,9 @@
 #ifndef JUEGO_RAYLIB_SHAPE_HPP
 #define JUEGO_RAYLIB_SHAPE_HPP
 
+#include <vector>
+
+#include "Obstacle.hpp"
 #include "raylib.h"
 #include "raymath.h"
 
@@ -15,21 +18,34 @@ enum class ShapeType {
     HEXAGON
 };
 
+struct Fragment {
+    Vector2 position;
+    Vector2 velocity;
+    float rotation;
+    float rotationSpeed;
+    float size;
+    float lifetime;
+};
+
 class Shape {
 private:
+    Color m_Color{WHITE};
     Vector2 m_Position{};
     Vector2 m_Direction{};
     Vector2 m_Velocity{};
-    ShapeType m_Type{ShapeType::TRIANGLE};
     float m_Size{3};
     float m_Speed {10};
     float m_Friction{0.98f};
+    bool m_Collided {false};
+    ShapeType m_Type{ShapeType::TRIANGLE};
+    std::vector<Fragment> m_Fragments;
 
 public:
-    bool Collided {false};
+
     bool Pushed{false};
     bool Dead {false};
     bool Moving {false};
+    bool Delete{false};
 
     Shape(Vector2 position, float size, float speed, ShapeType shapeType = ShapeType::TRIANGLE) : m_Position(position), m_Type(shapeType), m_Size(size), m_Speed(speed), m_Velocity({0,0}) {}
 
@@ -54,6 +70,6 @@ public:
     bool processCollisionWithDifferentShape(Shape& shape);
     void shoot(const Vector2& releasePosition);
     void advanceShape() { m_Type = static_cast<ShapeType>((static_cast<int>(m_Type) + 1)); }
-    void shatter();
+    std::vector<Fragment> shatter();
 };
 #endif //JUEGO_RAYLIB_SHAPE_HPP

@@ -10,7 +10,8 @@
 
 void GameManager::reset()
 {
-    this->Shapes = {};
+    Shapes = {};
+    Obstacles = {};
     UIManager = {};
     Health = {3};
 }
@@ -21,9 +22,26 @@ void GameManager::init()
     UIManager.init();
 }
 
+void GameManager::update()
+{
+    if (Health == 0) s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
+
+    Shapes.erase(
+        std::remove_if(Shapes.begin(), Shapes.end(), [](const Shape& shape) {
+            return shape.Dead || shape.Delete;
+        }), Shapes.end()
+    );
+
+    for (auto& shape : Shapes)
+    {
+        shape.update();
+    }
+
+    UIManager.update();
+}
+
 void GameManager::spawnShapes()
 {
-
     int seed = (int)time(0);
     SetRandomSeed(seed);
     int shapeType = 0;
@@ -52,24 +70,26 @@ void GameManager::spawnShapes()
         if (i == 7) shapeType++;
         if (i == 8) shapeType++;
     }
-}
 
-void GameManager::update()
-{
-    if (Health == 0) s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
+    for (int i = 0; i < 2; i++) {
 
-    Shapes.erase(
-        std::remove_if(Shapes.begin(), Shapes.end(), [](const Shape& shape) {
-            return shape.Collided || shape.Dead;
-        }),
-        Shapes.end()
-    );
+        float x, y;
+        bool collided{false};
+        do {
+            x = GetRandomValue(100, 1720);
+            y = GetRandomValue(100, 1720);
 
-    for (auto& shape : Shapes)
-    {
-        shape.update();
+            auto iter = std::find_if(Shapes.begin(), Shapes.end(), [x, y](Shape& shape) {
+                    Vector2 point = { x, y };
+                    return CheckCollisionPointCircle(point, shape.getPosition(), shape.getSize() + 100);
+            });
+
+            collided = iter != Shapes.end();
+
+        } while (collided);
+
+        Obstacles.emplace_back(Vector2{x, y}, 100.0f);
+
     }
-
-    UIManager.update();
 }
 

@@ -38,6 +38,8 @@ add_executable(${PROJECT_NAME}
         src/scenes/Sprite.hpp
         src/managers/GameUIManager.cpp
         src/managers/GameUIManager.hpp
+        src/Obstacle.cpp
+        src/Obstacle.hpp
 )
 
 # Definir que estamos en Escritorio (Para los #ifdef PLATFORM_DESKTOP)

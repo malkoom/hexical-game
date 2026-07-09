@@ -141,7 +141,7 @@ void InitGame(Scene* scene)
 void UpdateDrawFrame()
 {
 
- 
+
     // Update
     //----------------------------------------------------------------------------------
     // TODO: Update variables / Implement example logic at this point

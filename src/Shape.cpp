@@ -33,6 +33,12 @@ void Shape::update()
                 }
             }
         }
+
+        for (auto& obstacle : s_GameManager.Obstacles) {
+            if (CheckCollisionPointCircle(m_Position, obstacle.getPosition(), obstacle.getSize())) {
+                m_Velocity = obstacle.getReflectedCollision(m_Position, m_Velocity);
+            }
+        }
     } else {
         if (Moving && !Pushed) s_GameManager.setHealth(s_GameManager.Health - 1); // No chocó con nadie
         m_Velocity = Vector2Zero();
@@ -40,6 +46,19 @@ void Shape::update()
         Pushed = false;
     }
 
+    // Fragmentos
+    float dt = GetFrameTime();
+    for (auto it = m_Fragments.begin(); it != m_Fragments.end();) {
+        it->position = Vector2Add(it->position, Vector2Scale(it->velocity, dt));
+        it->rotation += it->rotationSpeed * dt;
+        it->lifetime -= dt;
+
+        if (it->lifetime <= 0) {
+            it = m_Fragments.erase(it); // Eliminar si murieron
+        } else {
+            ++it;
+        }
+    }
 
 
     if (Dead) {
@@ -79,8 +98,11 @@ bool Shape::processCollisionWithEqualShape(Shape &shape)
     TraceLog(LOG_INFO, "¡Figuras separadas y colisión resuelta!");
     shape.advanceShape();
 
-    this->Collided = true;
+    m_Fragments = this->shatter();
+    m_Collided = true;
+    Pushed = true;
     shape.Pushed = true;
+
 
     return true;
 }
@@ -127,43 +149,74 @@ void Shape::shoot(const Vector2 &releasePosition)
     m_Velocity = Vector2Scale(direction, force);
 }
 
-void Shape::shatter()
+std::vector<Fragment> Shape::shatter()
 {
+    std::vector<Fragment> fragments;
+
+    for (int i = 0; i < 20; i++) {
+        int randAngle = GetRandomValue(0, 360);
+        float randSpeed = (float)GetRandomValue(100, 300); // Píxeles por segundo
+
+        // Creamos una dirección aleatoria de disparo
+        Vector2 direction = { -1, 0 };
+        direction = Vector2Rotate(direction, DEG2RAD * randAngle);
+
+        Fragment frag;
+        frag.position = m_Position; // Empiezan en el centro de esta figura
+        frag.velocity = Vector2Scale(direction, randSpeed);
+        frag.rotation = (float)randAngle;
+        frag.rotationSpeed = (float)GetRandomValue(-180, 180);
+        frag.size = m_Size * 0.2f;
+        frag.lifetime = 0.5f; // Duran medio segundo flotando
+
+        fragments.push_back(frag);
+    }
+
+    return fragments;
 }
 
 void Shape::draw()
 {
-    Color baseColor = WHITE;
     int sides = 3;
     float rotation = 0.0f;
 
     switch (m_Type) {
         case(ShapeType::TRIANGLE):
-            baseColor = GetColor(0x46425eff);
+            m_Color = GetColor(0x46425eff);
             sides = 3;
             rotation = 30.0f;
             break;
         case(ShapeType::SQUARE):
-            baseColor = GetColor(0x15788cff);
+            m_Color = GetColor(0x15788cff);
             sides = 4;
             rotation = 45.0f;
             break;
         case(ShapeType::PENTAGON):
-            baseColor = GetColor(0x00b9beff);
+            m_Color = GetColor(0x00b9beff);
             sides = 5;
             rotation = 0.0f;
             break;
         case(ShapeType::HEXAGON):
-            baseColor = GetColor(0xff6973ff);
+            m_Color = GetColor(0xff6973ff);
             sides = 6;
             rotation = 0.0f;
             break;
         default:
             return;
     }
-    DrawPoly(m_Position, sides, m_Size, rotation, ColorAlpha(baseColor, 0.7f));
 
-    DrawPolyLinesEx(m_Position, sides, m_Size, rotation, 8.0f, ColorAlpha(baseColor, 0.3f));
+    if (!m_Collided){
+        DrawPoly(m_Position, sides, m_Size, rotation, ColorAlpha(m_Color, 0.7f));
 
-    DrawPolyLinesEx(m_Position, sides, m_Size, rotation, 2.0f, baseColor);
+        DrawPolyLinesEx(m_Position, sides, m_Size, rotation, 8.0f, ColorAlpha(m_Color, 0.3f));
+
+        DrawPolyLinesEx(m_Position, sides, m_Size, rotation, 2.0f, m_Color);
+        }
+    else {
+        for (const auto& frag : m_Fragments) {
+            Color alphaColor = ColorAlpha(m_Color, frag.lifetime / 0.5f);
+            DrawPolyLines(frag.position, (int)m_Type, frag.size, frag.rotation, alphaColor);
+        }
+        if (m_Fragments.empty()) Delete = true;
+    }
 }

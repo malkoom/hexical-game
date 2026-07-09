@@ -8,12 +8,14 @@
 #include <vector>
 
 #include "GameUIManager.hpp"
+#include "Obstacle.hpp"
 #include "../Shape.hpp"
 
 
 class GameManager {
 public:
     std::vector<Shape> Shapes {};
+    std::vector<Obstacle> Obstacles{};
     GameUIManager UIManager{};
     int Health{3};
 

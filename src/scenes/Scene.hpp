@@ -13,7 +13,7 @@ public:
     virtual void init() = 0;
     virtual void update(const Vector2& virtualMouse) = 0;
     virtual void draw(const Vector2& virtualMouse) = 0;
-    virtual void drawUI(const Vector2& virtualMouse) = 0;
+    virtual void drawUI(const Vector2& realScreenSize) = 0;
 };
 
 

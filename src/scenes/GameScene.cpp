@@ -26,9 +26,12 @@ void GameScene::update(const Vector2& virtualMouse)
 
 void GameScene::draw(const Vector2& virtualMouse)
 {
-    for (auto& shape : s_GameManager.Shapes)
-    {
+    for (auto& shape : s_GameManager.Shapes) {
         shape.draw();
+    }
+
+    for (auto& obstacle : s_GameManager.Obstacles) {
+        obstacle.draw();
     }
 }
 
