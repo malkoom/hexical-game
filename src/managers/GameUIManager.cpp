@@ -3,6 +3,8 @@
 //
 
 #include "GameUIManager.hpp"
+#include "../external/raygui.h"
+#include <string>
 
 void GameUIManager::init()
 {
@@ -12,6 +14,7 @@ void GameUIManager::init()
 void GameUIManager::draw()
 {
     drawHearts();
+    drawScore();
 }
 
 void GameUIManager::drawHearts()
@@ -27,6 +30,13 @@ void GameUIManager::drawHearts()
 
     // Restauramos la posición original por si se necesita en otro sitio
     m_HeartSprite.setPosition(originalPosition);
+}
+
+void GameUIManager::drawScore()
+{
+    GuiSetStyle(DEFAULT, TEXT_SIZE, 48);
+    std::string scoreText = "Score: " + std::to_string(m_Score);
+    DrawText(scoreText.c_str(), 1600, 50, 64, BLACK);
 }
 
 void GameUIManager::update()

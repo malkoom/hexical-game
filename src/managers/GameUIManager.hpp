@@ -9,6 +9,7 @@
 
 class GameUIManager {
 private:
+    int m_Score{0};
     int m_Hearts{3};
     Sprite m_HeartSprite{"resources/images/heart.png", {10, 10}, 0.05f, GetColor(0xffffff88)};
 
@@ -17,6 +18,7 @@ public:
     void draw();
     void update();
     void drawHearts();
+    void drawScore();
 
     int getHearts() const { return m_Hearts; }
     void setHearts(int numHearts) { m_Hearts = numHearts; }
