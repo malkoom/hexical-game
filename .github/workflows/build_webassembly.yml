@@ -34,7 +34,6 @@ jobs:
         uses: emscripten-core/setup-emsdk@v11
         with:
           version: 3.1.64 # Versión LTS recomendada y super estable para Raylib
-          actions-cache-folder: 'emsdk-cache'
 
       - name: Setup Release Paths (Only on Release)
         run: |
