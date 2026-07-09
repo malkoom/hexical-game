@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Definir dónde está Raylib (apuntando a tu carpeta local)
-set(RAYLIB_PATH "~/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib" CACHE PATH "Path to raylib source directory")
+set(RAYLIB_PATH "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib" CACHE PATH "Path to raylib source directory")
 
 # Incluir subdirectorio de raylib para que CMake lo compile automáticamente
 add_subdirectory(${RAYLIB_PATH} ${CMAKE_BINARY_DIR}/raylib)

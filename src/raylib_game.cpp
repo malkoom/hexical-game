@@ -104,7 +104,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
 #if defined(PLATFORM_WEB)
-    emscripten_set_main_loop_arg(UpdateDrawFrame, (void*)gameScene, 60, 1);
+    emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
 #else
     SetTargetFPS(60);     // Set our game frames-per-second
     //--------------------------------------------------------------------------------------
@@ -141,7 +141,7 @@ void InitGame(Scene* scene)
 void UpdateDrawFrame()
 {
 
-
+ 
     // Update
     //----------------------------------------------------------------------------------
     // TODO: Update variables / Implement example logic at this point

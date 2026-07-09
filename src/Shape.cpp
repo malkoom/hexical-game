@@ -127,6 +127,10 @@ void Shape::shoot(const Vector2 &releasePosition)
     m_Velocity = Vector2Scale(direction, force);
 }
 
+void Shape::shatter()
+{
+}
+
 void Shape::draw()
 {
     Color baseColor = WHITE;

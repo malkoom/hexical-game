@@ -54,5 +54,6 @@ public:
     bool processCollisionWithDifferentShape(Shape& shape);
     void shoot(const Vector2& releasePosition);
     void advanceShape() { m_Type = static_cast<ShapeType>((static_cast<int>(m_Type) + 1)); }
+    void shatter();
 };
 #endif //JUEGO_RAYLIB_SHAPE_HPP
