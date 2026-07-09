@@ -8,8 +8,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Definir dónde está Raylib (apuntando a tu carpeta local)
 set(RAYLIB_PATH "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib" CACHE PATH "Path to raylib source directory")
 
-# Incluir subdirectorio de raylib para que CMake lo compile automáticamente
-add_subdirectory(${RAYLIB_PATH} ${CMAKE_BINARY_DIR}/raylib)
+if(DEFINED ENV{GITHUB_ACTIONS})
+    # En GitHub Actions, le diremos que lo busque al mismo nivel (../raylib)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../raylib ${CMAKE_BINARY_DIR}/raylib)
+else()
+    # En tu Fedora local, sigue buscando en tu ruta absoluta externa de siempre
+    add_subdirectory("/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib" ${CMAKE_BINARY_DIR}/raylib)
+endif()
 
 # Definir nuestro ejecutable y sus archivos fuentes (.cpp)
 add_executable(${PROJECT_NAME}
