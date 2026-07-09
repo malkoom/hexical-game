@@ -11,8 +11,8 @@
 void GameScene::init()
 {
     // Inicializar m_Shapes para que apunte a un nuevo vector de Shape
-
-    s_GameManager.spawnShapes();
+    s_GameManager.reset();
+    s_GameManager.init();
 }
 
 void GameScene::update(const Vector2& virtualMouse)

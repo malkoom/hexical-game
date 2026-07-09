@@ -4,20 +4,20 @@
 
 #include "Sprite.hpp"
 
-Sprite::Sprite(const char* texturePath, Vector2 position, float scale)
-    : m_Position(position), m_Scale(scale)
-{
-    m_Texture = LoadTexture(texturePath);
-}
 
 Sprite::~Sprite()
 {
     UnloadTexture(m_Texture);
 }
 
+void Sprite::init()
+{
+    m_Texture = LoadTexture(m_TexturePath);
+}
+
 void Sprite::draw()
 {
-    DrawTextureEx(m_Texture, m_Position, 0, m_Scale, WHITE);
+    DrawTextureEx(m_Texture, m_Position, 0, m_Scale, m_Color);
 }
 
 void Sprite::setPosition(const Vector2& position)

@@ -19,8 +19,8 @@ void Shape::update()
 
     if (IsOutOfBounds(m_Position, m_Size)) Dead = true;
 
-    if (m_Velocity.x != 0.0f || m_Velocity.y != 0.0f) {
-
+    if (fabsf(m_Velocity.x) > 0.1f || fabsf(m_Velocity.y) > 0.1f) {
+        Moving = true;
         for (auto& other : s_GameManager.Shapes) {
 
             if (&other == this) continue;
@@ -28,12 +28,22 @@ void Shape::update()
             if (CheckCollisionCircles(m_Position, m_Size, other.m_Position, other.m_Size)) {
                 if (m_Type == other.m_Type) {
                     processCollisionWithEqualShape(other);
-                    break;
-                } else if (m_Type < other.m_Type){
-                    // Lógica rebote
+                } else {
+                    processCollisionWithDifferentShape(other);
                 }
             }
         }
+    } else {
+        if (Moving && !Pushed) s_GameManager.setHealth(s_GameManager.Health - 1); // No chocó con nadie
+        m_Velocity = Vector2Zero();
+        Moving = false;
+        Pushed = false;
+    }
+
+
+
+    if (Dead) {
+        s_GameManager.setHealth(0);
     }
 }
 
@@ -70,6 +80,41 @@ bool Shape::processCollisionWithEqualShape(Shape &shape)
     shape.advanceShape();
 
     this->Collided = true;
+    shape.Pushed = true;
+
+    return true;
+}
+
+bool Shape::processCollisionWithDifferentShape(Shape &shape)
+{
+    // Obtenemos el vector de distancia entre los dos centros
+    Vector2 normal = Vector2Subtract(shape.m_Position, m_Position);
+    float distance = Vector2Length(normal);
+
+    // Evitamos división por cero si están exactamente en el mismo punto
+    if (distance == 0.0f) return false;
+
+    // Calculamos cuánto se están solapando (overlap)
+    float overlap = (m_Size + shape.m_Size) - distance;
+
+    if (overlap > 0.0f)
+    {
+        // Normalizamos el vector de dirección del choque
+        normal = Vector2Scale(normal, 1.0f / distance);
+
+        // Empujamos a esta figura hacia atrás la mitad del solapamiento
+        m_Position = Vector2Subtract(m_Position, Vector2Scale(normal, overlap * 0.5f));
+        // Empujamos a la otra figura hacia adelante la otra mitad
+        shape.m_Position = Vector2Add(shape.m_Position, Vector2Scale(normal, overlap * 0.5f));
+    }
+
+    // Físicas
+    // Al chocar, la otra gana la velocidad y esta la pierde
+    shape.m_Velocity = m_Velocity;
+    m_Velocity = Vector2Negate(m_Velocity);
+
+    // Castigamos
+    s_GameManager.setHealth(s_GameManager.Health - 1);
 
     return true;
 }
@@ -84,25 +129,37 @@ void Shape::shoot(const Vector2 &releasePosition)
 
 void Shape::draw()
 {
+    Color baseColor = WHITE;
+    int sides = 3;
+    float rotation = 0.0f;
+
     switch (m_Type) {
         case(ShapeType::TRIANGLE):
-            DrawTriangle({m_Position.x, m_Position.y - m_Size / 2.0f},
-                {m_Position.x - m_Size / 2.0f, m_Position.y + m_Size / 2.0f},
-                {m_Position.x + m_Size / 2.0f, m_Position.y + m_Size / 2.0f},
-                GetColor(0x46425eff));
+            baseColor = GetColor(0x46425eff);
+            sides = 3;
+            rotation = 30.0f;
             break;
-        case(ShapeType::SQUARE): {
-            float halfSize = m_Size / 2.0f;  // Centro del cuadrado es el m_Position
-            DrawRectangle(m_Position.x - halfSize, m_Position.y - halfSize, m_Size, m_Size, GetColor(0x15788cff));
-        }
+        case(ShapeType::SQUARE):
+            baseColor = GetColor(0x15788cff);
+            sides = 4;
+            rotation = 45.0f;
             break;
         case(ShapeType::PENTAGON):
-            DrawPoly(m_Position, 5, m_Size, 0, GetColor(0x00b9beff));
+            baseColor = GetColor(0x00b9beff);
+            sides = 5;
+            rotation = 0.0f;
             break;
         case(ShapeType::HEXAGON):
-            DrawPoly(m_Position, 6, m_Size, 0, GetColor(0xff6973ff));
+            baseColor = GetColor(0xff6973ff);
+            sides = 6;
+            rotation = 0.0f;
             break;
         default:
-            break;
+            return;
     }
+    DrawPoly(m_Position, sides, m_Size, rotation, ColorAlpha(baseColor, 0.7f));
+
+    DrawPolyLinesEx(m_Position, sides, m_Size, rotation, 8.0f, ColorAlpha(baseColor, 0.3f));
+
+    DrawPolyLinesEx(m_Position, sides, m_Size, rotation, 2.0f, baseColor);
 }

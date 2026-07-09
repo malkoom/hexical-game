@@ -13,6 +13,7 @@ private:
     Shape* m_CurrentShape{nullptr};
     Vector2 m_MousePressPosition{};
     bool m_IsAiming{false};
+    bool m_CanShoot{true};
 
 public:
     void handleInput(const Vector2& virtualMouse);

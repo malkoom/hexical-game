@@ -4,6 +4,11 @@
 
 #include "GameUIManager.hpp"
 
+void GameUIManager::init()
+{
+    m_HeartSprite.init();
+}
+
 void GameUIManager::draw()
 {
     drawHearts();
@@ -11,12 +16,17 @@ void GameUIManager::draw()
 
 void GameUIManager::drawHearts()
 {
-    float offset{};
+    Vector2 originalPosition = m_HeartSprite.getPosition();
+    float spacing = 100.0f; // Espacio entre cada corazón
+
     for (int i = 0; i < m_Hearts; i++) {
-        m_HeartSprite.setPosition({m_HeartSprite.getPosition().x + offset, m_HeartSprite.getPosition().y});
+        Vector2 heartPosition = {originalPosition.x + (i * spacing), originalPosition.y};
+        m_HeartSprite.setPosition(heartPosition);
         m_HeartSprite.draw();
-        offset += 50;
     }
+
+    // Restauramos la posición original por si se necesita en otro sitio
+    m_HeartSprite.setPosition(originalPosition);
 }
 
 void GameUIManager::update()

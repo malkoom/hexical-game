@@ -21,7 +21,7 @@ public:
     {
     }
 
-    ~Button() { delete m_Text; }
+    ~Button() = default;
 
     void draw();
     bool isPressed();

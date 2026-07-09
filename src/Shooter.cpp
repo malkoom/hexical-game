@@ -5,9 +5,12 @@
 #include "Shooter.hpp"
 
 #include "managers/GameManager.hpp"
+#include <algorithm>
 
 void Shooter::handleInput(const Vector2& virtualMouse)
 {
+    if (!m_CanShoot) return;
+
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !m_IsAiming) {
         m_IsAiming = true;
         m_MousePressPosition = virtualMouse;
@@ -36,14 +39,18 @@ void Shooter::handleInput(const Vector2& virtualMouse)
 
 void Shooter::update()
 {
-    // De momento no hace nada, pero podría usarse para actualizar el estado del shooter
+   auto iter = std::find_if(s_GameManager.Shapes.begin(), s_GameManager.Shapes.end(),[](const Shape& shape) {
+        return shape.Moving;
+    });
+
+    m_CanShoot = iter == s_GameManager.Shapes.end();
 }
 
 void Shooter::draw(const Vector2& virtualMouse)
 {
     if (m_IsAiming && m_CurrentShape)
     {
-        DrawLineV(m_CurrentShape->getPosition(), virtualMouse, RED);
+        DrawLineEx(m_CurrentShape->getPosition(), virtualMouse, 2.0f, RED);
     }
 }
 

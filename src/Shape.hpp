@@ -27,7 +27,9 @@ private:
 
 public:
     bool Collided {false};
+    bool Pushed{false};
     bool Dead {false};
+    bool Moving {false};
 
     Shape(Vector2 position, float size, float speed, ShapeType shapeType = ShapeType::TRIANGLE) : m_Position(position), m_Type(shapeType), m_Size(size), m_Speed(speed), m_Velocity({0,0}) {}
 
@@ -49,6 +51,7 @@ public:
     void draw();
 
     bool processCollisionWithEqualShape(Shape& shape);
+    bool processCollisionWithDifferentShape(Shape& shape);
     void shoot(const Vector2& releasePosition);
     void advanceShape() { m_Type = static_cast<ShapeType>((static_cast<int>(m_Type) + 1)); }
 };

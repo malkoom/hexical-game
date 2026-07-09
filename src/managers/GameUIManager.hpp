@@ -10,12 +10,16 @@
 class GameUIManager {
 private:
     int m_Hearts{3};
-    Sprite m_HeartSprite{"resources/heart.png", {10, 10}, 0.1f};
+    Sprite m_HeartSprite{"resources/images/heart.png", {10, 10}, 0.05f, GetColor(0xffffff88)};
 
 public:
+    void init();
     void draw();
     void update();
     void drawHearts();
+
+    int getHearts() const { return m_Hearts; }
+    void setHearts(int numHearts) { m_Hearts = numHearts; }
 };
 
 #endif //JUEGO_RAYLIB_GAMEUIMANAGER_HPP
