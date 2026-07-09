@@ -163,7 +163,19 @@ void UpdateDrawFrame()
     // Render game screen to a texture, 
     // it could be useful for scaling or further shader postprocessing
     BeginTextureMode(target);
-        ClearBackground(GetColor(0xffeeccff));
+        DrawRectangle(0, 0, virtualWidth, virtualHeight, GetColor(0xffeecc22));
+
+    float gridSpacing = 80.0f;
+    Color gridColor = ColorAlpha(GetColor(0x46425eff), 0.35f);
+
+    // Líneas verticales
+    for (float x = 0; x < virtualWidth; x += gridSpacing) {
+        DrawLineEx({ x, 0 }, { x, (float)virtualHeight }, 1.5f, gridColor);
+    }
+    // Líneas horizontales
+    for (float y = 0; y < virtualHeight; y += gridSpacing) {
+        DrawLineEx({ 0, y }, { (float)virtualWidth, y }, 1.5f, gridColor);
+    }
         // TODO: Draw your game screen here
 
         s_SceneManager.getCurrentScene()->draw(virtualMouse);
@@ -173,7 +185,7 @@ void UpdateDrawFrame()
     
     // Render to screen (main framebuffer)
     BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(GetColor(0xffeecc33));
         
         // Draw render texture to screen, scaled if required
     DrawTexturePro(
@@ -191,6 +203,8 @@ void UpdateDrawFrame()
     );
 
         // TODO: Draw everything that requires to be drawn at this point, maybe UI?
+
+    s_SceneManager.getCurrentScene()->drawUI(virtualMouse);
 
     EndDrawing();
     //----------------------------------------------------------------------------------  

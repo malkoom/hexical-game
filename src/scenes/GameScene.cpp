@@ -30,8 +30,10 @@ void GameScene::draw(const Vector2& virtualMouse)
     {
         shape.draw();
     }
+}
 
+void GameScene::drawUI(const Vector2& virtualMouse)
+{
     m_Shooter.draw(virtualMouse);
-
     s_GameManager.UIManager.draw();
 }

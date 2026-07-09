@@ -21,5 +21,10 @@ void MenuScene::update(const Vector2 &virtualMouse)
 
 void MenuScene::draw(const Vector2 &virtualMouse)
 {
+
+}
+
+void MenuScene::drawUI(const Vector2 &virtualMouse)
+{
     m_PlayBtn.draw();
 }

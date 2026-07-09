@@ -17,6 +17,7 @@ public:
     void init() override;
     void update(const Vector2 &virtualMouse) override;
     void draw(const Vector2 &virtualMouse) override;
+    void drawUI(const Vector2 &virtualMouse) override;
 
 };
 

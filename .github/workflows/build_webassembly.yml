@@ -3,49 +3,46 @@ name: Build Project - WebAssembly
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main # 👈 Asegura que se despliega solo cuando pushees a tu rama principal
     paths:
       - 'src/**'
       - 'resources/**'
       - 'CMakeLists.txt'
-      - '.github/workflows/build_wasm.yml'
+      - '.github/workflows/build_webassembly.yml'
   release:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
+  pages: write      # 👈 OBLIGATORIO: Permiso para escribir en GitHub Pages
+  id-token: write   # 👈 OBLIGATORIO: Requerido para la autenticación del despliegue
 
 jobs:
   build:
-    permissions:
-      contents: write       # Requerido para subir el zip al Release de GitHub
     runs-on: windows-latest
 
     env:
-      PROJECT_NAME: juego_raylib # Fuerza el nombre exacto de tu ejecutable según tu CMakeLists.txt
+      PROJECT_NAME: juego_raylib
       PROJECT_RELEASE_PATH: juego_raylib_dev_wasm
 
     steps:
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
-          submodules: recursive # Por si acaso tienes submódulos
+          submodules: recursive
 
       - name: Setup emsdk
         uses: emscripten-core/setup-emsdk@v11
         with:
-          version: 3.1.64 # Versión LTS recomendada y super estable para Raylib
+          version: 3.1.64
+          # Cache eliminada para evitar congelamientos en Windows
 
       - name: Setup Release Paths (Only on Release)
         run: |
           echo "PROJECT_RELEASE_PATH=${{ env.PROJECT_NAME }}_v${{ github.event.release.tag_name }}_wasm" >> $GITHUB_ENV
         shell: bash
         if: github.event_name == 'release' && github.event.action == 'published'
-
-      - name: Verify EMSDK Context
-        run: |
-          emcc -v
-          echo "EMSDK PATH: $EMSDK"
-        shell: bash
 
       - name: Configure CMake for WebAssembly
         run: |
@@ -60,27 +57,38 @@ jobs:
       - name: Generate Artifacts Directory
         run: |
           mkdir ${{ env.PROJECT_RELEASE_PATH }}
-          # Copiamos los archivos generados por Emscripten desde la carpeta build a nuestra carpeta limpia de entrega
           copy /Y build\${{ env.PROJECT_NAME }}.html ${{ env.PROJECT_RELEASE_PATH }}\index.html
           copy /Y build\${{ env.PROJECT_NAME }}.js ${{ env.PROJECT_RELEASE_PATH }}\${{ env.PROJECT_NAME }}.js
           copy /Y build\${{ env.PROJECT_NAME }}.wasm ${{ env.PROJECT_RELEASE_PATH }}\${{ env.PROJECT_NAME }}.wasm
-          
-          # Copiamos el archivo .data virtual de recursos SOLO si existe (gracias a tu preload-file de CMake)
           if exist build\${{ env.PROJECT_NAME }}.data copy /Y build\${{ env.PROJECT_NAME }}.data ${{ env.PROJECT_RELEASE_PATH }}\${{ env.PROJECT_NAME }}.data
-          
-          # Documentos base si existieran en la raíz
           if exist README.md copy /Y README.md ${{ env.PROJECT_RELEASE_PATH }}\README.md
           if exist LICENSE copy /Y LICENSE ${{ env.PROJECT_RELEASE_PATH }}\LICENSE
           
-          # Comprimir todo en un .zip listo para descargar
+          # Guardamos una copia en zip por si la quieres descargar desde el panel
           7z a .\${{ env.PROJECT_RELEASE_PATH }}.zip .\${{ env.PROJECT_RELEASE_PATH }}\*
         shell: cmd
 
-      - name: Upload Artifacts to Dashboard
+      # ==== PASOS NUEVOS PARA GITHUB PAGES ====
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Le decimos que suba el contenido de la carpeta web que acabamos de rellenar
+          path: ./${{ env.PROJECT_RELEASE_PATH }}
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        # Solo hacemos el despliegue web si venimos de un push normal o release, no en entornos de pruebas raros
+        if: github.ref == 'refs/heads/main' || github.event_name == 'release'
+
+      # ========================================
+
+      - name: Upload Zip to Dashboard
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.PROJECT_RELEASE_PATH }}
-          path: ./${{ env.PROJECT_RELEASE_PATH }}
+          name: ${{ env.PROJECT_RELEASE_PATH }}_zip
+          path: ./${{ env.PROJECT_RELEASE_PATH }}.zip
 
       - name: Upload Artifact to GitHub Release
         uses: softprops/action-gh-release@v2
