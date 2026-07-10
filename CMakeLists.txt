@@ -61,10 +61,13 @@ if(EMSCRIPTEN)
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
 
     # Configuramos las opciones de enlazado correctas para Emscripten
-    target_link_options(${PROJECT_NAME} PRIVATE 
-        "--shell-file=${CMAKE_SOURCE_DIR}/src/minshell.html"
-        "-sUSE_GLFW=3"
-        "-sASYNCIFY"
+    target_link_options(${PROJECT_NAME} PRIVATE
+            "--shell-file=${CMAKE_SOURCE_DIR}/src/minshell.html"
+            "-sUSE_GLFW=3"
+            "-sASYNCIFY"
+            # ✅ EMPAQUETADO VIRTUAL DE ASSETS PARA WEB:
+            # Esto mapea tu carpeta de recursos del disco real al sistema virtual del navegador
+            "--preload-file=${CMAKE_SOURCE_DIR}/resources@/resources"
     )
 endif()
 
