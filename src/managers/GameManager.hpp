@@ -16,8 +16,9 @@ class GameManager {
 public:
     std::vector<Shape> Shapes {};
     std::vector<Obstacle> Obstacles{};
-    GameUIManager UIManager{};
+    GameUIManager UIManager{0, 0};
     int Health{3};
+    int Score{0};
 
     void reset();
     void init();
@@ -25,6 +26,7 @@ public:
 
     void spawnShapes();
     void setHealth(int health) { Health = health; UIManager.setHearts(Health); };
+
 };
 
 inline GameManager s_GameManager;

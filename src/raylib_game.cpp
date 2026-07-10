@@ -43,12 +43,6 @@
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
-typedef enum { 
-    SCREEN_LOGO = 0, 
-    SCREEN_TITLE, 
-    SCREEN_GAMEPLAY, 
-    SCREEN_ENDING
-} GameScreen;
 
 // TODO: Define your custom data types here
 
@@ -110,7 +104,7 @@ int main(void)
     //--------------------------------------------------------------------------------------
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button
+    while (!WindowShouldClose() && !s_SceneManager.Quit)    // Detect window close button
     {
         UpdateDrawFrame();
     }

@@ -19,6 +19,7 @@ private:
     std::vector<Scene*> m_Scenes;
 
 public:
+    bool Quit{false};
     ~SceneManager() {
         for (auto& scene : m_Scenes) {
             delete scene;

@@ -34,6 +34,7 @@ void Shooter::handleInput(const Vector2& virtualMouse)
         {
             m_CurrentShape->shoot(virtualMouse);
         }
+        m_CurrentShape = nullptr;
     }
 }
 
@@ -50,7 +51,27 @@ void Shooter::draw(const Vector2& virtualMouse)
 {
     if (m_IsAiming && m_CurrentShape)
     {
-        DrawLineEx(m_CurrentShape->getPosition(), virtualMouse, 2.0f, RED);
+        Vector2 shapePos = m_CurrentShape->getPosition();
+
+        float dist = Vector2Distance(shapePos, virtualMouse);
+        float maxPullDistance = 400.0f;
+
+        // Calculamos el ratio de fuerza entre 0.0f y 1.0f
+        float forceRatio = Clamp(dist / maxPullDistance, 0.0f, 1.0f);
+
+
+        Color color = {
+            (unsigned char)(255 * forceRatio),          // Más rojo a más distancia
+            (unsigned char)(255 * (1.0f - forceRatio)), // Menos verde a más distancia
+            0,
+            255
+        };
+
+        // Dibujamos la línea de tensión con el color calculado y la variable corregida
+        DrawLineEx(shapePos, virtualMouse, 4.0f, color);
+
+        //Un mini círculo neón en la punta del cursor para que se vea más arcade
+        DrawCircleV(virtualMouse, 6.0f, color);
     }
 }
 

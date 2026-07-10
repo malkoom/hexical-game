@@ -19,11 +19,11 @@ void Shape::update()
 
     if (IsOutOfBounds(m_Position, m_Size)) Dead = true;
 
-    if (fabsf(m_Velocity.x) > 0.1f || fabsf(m_Velocity.y) > 0.1f) {
+    if (fabsf(m_Velocity.x) > 0.2f || fabsf(m_Velocity.y) > 0.2f) {
         Moving = true;
         for (auto& other : s_GameManager.Shapes) {
 
-            if (&other == this) continue;
+            if (&other == this || other.m_Collided) continue;
 
             if (CheckCollisionCircles(m_Position, m_Size, other.m_Position, other.m_Size)) {
                 if (m_Type == other.m_Type) {
@@ -35,7 +35,7 @@ void Shape::update()
         }
 
         for (auto& obstacle : s_GameManager.Obstacles) {
-            if (CheckCollisionPointCircle(m_Position, obstacle.getPosition(), obstacle.getSize())) {
+            if (CheckCollisionCircles(m_Position, m_Size, obstacle.getPosition(), obstacle.getSize())) {
                 m_Velocity = obstacle.getReflectedCollision(m_Position, m_Velocity);
             }
         }
@@ -63,6 +63,10 @@ void Shape::update()
 
     if (Dead) {
         s_GameManager.setHealth(0);
+    }
+
+    if (m_Fragments.empty() && m_Type == ShapeType::HEXICAL || m_Fragments.empty() && m_Collided) {
+        Delete = true;
     }
 }
 
@@ -134,9 +138,8 @@ bool Shape::processCollisionWithDifferentShape(Shape &shape)
     // Al chocar, la otra gana la velocidad y esta la pierde
     shape.m_Velocity = m_Velocity;
     m_Velocity = Vector2Negate(m_Velocity);
+    Pushed = true;
 
-    // Castigamos
-    s_GameManager.setHealth(s_GameManager.Health - 1);
 
     return true;
 }
@@ -168,6 +171,13 @@ std::vector<Fragment> Shape::shatter()
         frag.rotationSpeed = (float)GetRandomValue(-180, 180);
         frag.size = m_Size * 0.2f;
         frag.lifetime = 0.5f; // Duran medio segundo flotando
+
+        if (ShapeType::HEXAGON == m_Type) {
+            frag.position = Vector2{1920 / 2, 1920 / 2};
+            frag.velocity = Vector2Scale(direction, randSpeed * 2.0f);
+            frag.size = m_Size;
+            frag.lifetime = 1.5f;
+        }
 
         fragments.push_back(frag);
     }
@@ -215,8 +225,7 @@ void Shape::draw()
     else {
         for (const auto& frag : m_Fragments) {
             Color alphaColor = ColorAlpha(m_Color, frag.lifetime / 0.5f);
-            DrawPolyLines(frag.position, (int)m_Type, frag.size, frag.rotation, alphaColor);
+            DrawPolyLines(frag.position, sides, frag.size, frag.rotation, alphaColor);
         }
-        if (m_Fragments.empty()) Delete = true;
     }
 }

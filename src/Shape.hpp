@@ -15,7 +15,8 @@ enum class ShapeType {
     TRIANGLE = 0,
     SQUARE,
     PENTAGON,
-    HEXAGON
+    HEXAGON,
+    HEXICAL
 };
 
 struct Fragment {

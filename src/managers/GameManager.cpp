@@ -12,8 +12,7 @@ void GameManager::reset()
 {
     Shapes = {};
     Obstacles = {};
-    UIManager = {};
-    Health = {3};
+    UIManager = {s_GameManager.Score, s_GameManager.Health};
 }
 
 void GameManager::init()
@@ -24,19 +23,36 @@ void GameManager::init()
 
 void GameManager::update()
 {
-    if (Health == 0) s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
+    // Reset si no tenemos vida
+    if (Health == 0) {
+        Score = 0;
+        Health = 3;
+        s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
+    }
 
+    // Borramos las muertas y las que han chocado
     Shapes.erase(
         std::remove_if(Shapes.begin(), Shapes.end(), [](const Shape& shape) {
             return shape.Dead || shape.Delete;
         }), Shapes.end()
     );
 
+    if (Shapes.empty()) {
+        Score++;
+        Health++;
+        s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
+    }
+
+    // Actualizamos las figuras
     for (auto& shape : Shapes)
     {
+        if (shape.getType() > ShapeType::HEXAGON) {
+            UIManager.setHexical(true);
+        }
         shape.update();
     }
 
+    // Actualizamos la UI
     UIManager.update();
 }
 
@@ -76,7 +92,7 @@ void GameManager::spawnShapes()
         float x, y;
         bool collided{false};
         do {
-            x = GetRandomValue(100, 1720);
+            x = GetRandomValue(300, 1600);
             y = GetRandomValue(100, 1720);
 
             auto iter = std::find_if(Shapes.begin(), Shapes.end(), [x, y](Shape& shape) {
