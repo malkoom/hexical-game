@@ -57,17 +57,18 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(EMSCRIPTEN)
+    # Forzamos a que el archivo de salida termine en .html en lugar de .js
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
 
+    # Forzar la inyección de los flags globales de memoria en el enlazador de Emscripten
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -sALLOW_MEMORY_GROWTH=1 -sINITIAL_MEMORY=67108864")
+
+    # Configuramos el resto de opciones específicas del target
     target_link_options(${PROJECT_NAME} PRIVATE
             "--shell-file=${CMAKE_SOURCE_DIR}/src/minshell.html"
             "-sUSE_GLFW=3"
             "-sASYNCIFY"
             "--preload-file=${CMAKE_SOURCE_DIR}/resources@/resources"
-            # ✅ SOLUCIÓN AL CUELGUE: Permitimos que la memoria crezca dinámicamente si los assets pesan
-            "-sALLOW_MEMORY_GROWTH=1"
-            # Le damos un bloque inicial de 64MB en lugar de los 16MB por defecto
-            "-sINITIAL_MEMORY=67108864"
     )
 endif()
 
