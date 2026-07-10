@@ -19,6 +19,7 @@ public:
     GameUIManager UIManager{0, 0};
     int Health{3};
     int Score{0};
+    int NumObstacles{2};
 
     void reset();
     void init();

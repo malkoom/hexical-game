@@ -27,6 +27,7 @@ void GameManager::update()
     if (Health == 0) {
         Score = 0;
         Health = 3;
+        NumObstacles = 2;
         s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
     }
 
@@ -40,6 +41,7 @@ void GameManager::update()
     if (Shapes.empty()) {
         Score++;
         Health++;
+        NumObstacles++;
         s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
     }
 
@@ -87,7 +89,7 @@ void GameManager::spawnShapes()
         if (i == 8) shapeType++;
     }
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < NumObstacles; i++) {
 
         float x, y;
         bool collided{false};

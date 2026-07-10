@@ -59,7 +59,12 @@ void Shooter::draw(const ScreenTransform& transform)
 
         Vector2 mousePosition = GetMousePosition();
 
-        float dist = Vector2Distance(shapeVirtualPos, mousePosition);
+        Vector2 virtualMouse = {
+            (mousePosition.x - transform.offset.x) / transform.scale,
+            (mousePosition.y - transform.offset.y) / transform.scale
+        };
+
+        float dist = Vector2Distance(shapeVirtualPos, virtualMouse);
         float maxPullDistance = 400.0f;
         float forceRatio = Clamp(dist / maxPullDistance, 0.0f, 1.0f);
 
