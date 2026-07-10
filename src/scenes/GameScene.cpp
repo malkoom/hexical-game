@@ -35,8 +35,8 @@ void GameScene::draw(const Vector2& virtualMouse)
     }
 }
 
-void GameScene::drawUI(const Vector2& virtualMouse)
+void GameScene::drawUI(const ScreenTransform& transform)
 {
-    m_Shooter.draw(virtualMouse);
-    s_GameManager.UIManager.draw();
+    m_Shooter.draw(transform);
+    s_GameManager.UIManager.draw(transform);
 }

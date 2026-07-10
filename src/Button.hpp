@@ -11,6 +11,7 @@ private:
     bool m_Pressed;
     char * m_Text;
     Rectangle m_Rectangle;
+    Color m_Color{};
 
 public:
     Button(bool m_pressed, char *m_text, const Vector2 &m_position, const Vector2 &m_size, const Color &m_color)
@@ -24,15 +25,14 @@ public:
     ~Button() = default;
 
     Vector2 getPosition() const { return {m_Rectangle.x + m_Rectangle.width / 2, m_Rectangle.y + m_Rectangle.height / 2};}
+    Color getColor() const { return m_Color; }
 
     void setPosition(const Vector2 &position) { m_Rectangle.x = position.x - m_Rectangle.width / 2; m_Rectangle.y = position.y - m_Rectangle.height / 2;};
     void setSize(const Vector2 &size);
+    void setColor(const Color& color) { m_Color = color; }
 
     void draw();
     bool isPressed();
-
-private:
-    Color m_Color;
 
 };
 

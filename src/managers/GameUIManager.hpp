@@ -1,11 +1,13 @@
-//
-// Created by marc on 8/7/26.
-//
-
+// GameUIManager.hpp
 #ifndef JUEGO_RAYLIB_GAMEUIMANAGER_HPP
 #define JUEGO_RAYLIB_GAMEUIMANAGER_HPP
 
 #include "../scenes/Sprite.hpp"
+
+struct ScreenTransform {
+    float scale;
+    Vector2 offset;
+};
 
 class GameUIManager {
 private:
@@ -16,14 +18,14 @@ private:
     float m_FontScaler{50};
     bool m_Hexical{false};
 
-    void drawHexical();
-    void drawHearts();
-    void drawScore();
+    void drawHexical(const ScreenTransform& transform);
+    void drawHearts(const ScreenTransform& transform);
+    void drawScore(const ScreenTransform& transform);
 
 public:
     GameUIManager(int score, int hearts) : m_Score(score), m_Hearts(hearts) {}
     void init();
-    void draw();
+    void draw(const ScreenTransform& transform);
     void update();
 
     int getScore() const { return m_Score; }

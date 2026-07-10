@@ -47,34 +47,36 @@ void Shooter::update()
     m_CanShoot = iter == s_GameManager.Shapes.end();
 }
 
-void Shooter::draw(const Vector2& virtualMouse)
+void Shooter::draw(const ScreenTransform& transform)
 {
     if (m_IsAiming && m_CurrentShape)
     {
-        Vector2 shapePos = m_CurrentShape->getPosition();
+        Vector2 shapeVirtualPos = m_CurrentShape->getPosition();
+        Vector2 shapeScreenPos = {
+            (shapeVirtualPos.x * transform.scale) + transform.offset.x,
+            (shapeVirtualPos.y * transform.scale) + transform.offset.y
+        };
 
-        float dist = Vector2Distance(shapePos, virtualMouse);
+        Vector2 mousePosition = GetMousePosition();
+
+        float dist = Vector2Distance(shapeVirtualPos, mousePosition);
         float maxPullDistance = 400.0f;
-
-        // Calculamos el ratio de fuerza entre 0.0f y 1.0f
         float forceRatio = Clamp(dist / maxPullDistance, 0.0f, 1.0f);
 
-
         Color color = {
-            (unsigned char)(255 * forceRatio),          // Más rojo a más distancia
-            (unsigned char)(255 * (1.0f - forceRatio)), // Menos verde a más distancia
+            (unsigned char)(255 * forceRatio),
+            (unsigned char)(255 * (1.0f - forceRatio)),
             0,
             255
         };
 
-        // Dibujamos la línea de tensión con el color calculado y la variable corregida
-        DrawLineEx(shapePos, virtualMouse, 4.0f, color);
+        float finalThickness = 4.0f * transform.scale;
+        float finalRadius = 6.0f * transform.scale;
 
-        //Un mini círculo neón en la punta del cursor para que se vea más arcade
-        DrawCircleV(virtualMouse, 6.0f, color);
+        DrawLineEx(shapeScreenPos, mousePosition, finalThickness, color);
+        DrawCircleV(mousePosition, finalRadius, color);
     }
 }
-
 void Shooter::setCurrentShape(Shape* shape)
 {
     m_CurrentShape = shape;

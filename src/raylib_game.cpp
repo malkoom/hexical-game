@@ -17,6 +17,7 @@
 #include <cstdint>
 
 #include "../external/raygui.h"
+#include "managers/GameUIManager.hpp"
 #include "managers/SceneManager.hpp"
 
 
@@ -80,6 +81,7 @@ int main(void)
 
     // Initialization
     //--------------------------------------------------------------------------------------
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(virtualWidth, virtualHeight, "Hexical");
     
     // TODO: Load resources / Initialize variables at this point
@@ -180,17 +182,22 @@ void UpdateDrawFrame()
     // Render to screen (main framebuffer)
     BeginDrawing();
         ClearBackground(GetColor(0xffeecc33));
+
+    ScreenTransform transform;
+    transform.scale = (windowWidth / virtualWidth < windowHeight / virtualHeight)
+                      ? (windowWidth / virtualWidth)
+                      : (windowHeight / virtualHeight);
+
+    transform.offset = {
+        (windowWidth - (virtualWidth * transform.scale)) * 0.5f,
+        (windowHeight - (virtualHeight * transform.scale)) * 0.5f
+    };
         
         // Draw render texture to screen, scaled if required
     DrawTexturePro(
         target.texture,
         (Rectangle){ 0, 0, (float)target.texture.width, -(float)target.texture.height },
-        (Rectangle){
-            (windowWidth - ((float)virtualWidth * scale)) * 0.5f,
-            (windowHeight - ((float)virtualHeight * scale)) * 0.5f,
-            (float)virtualWidth * scale,
-            (float)virtualHeight * scale
-        },
+        (Rectangle){ transform.offset.x, transform.offset.y, virtualWidth * transform.scale, virtualHeight * transform.scale },
         (Vector2){ 0, 0 },
         0.0f,
         WHITE
@@ -198,7 +205,7 @@ void UpdateDrawFrame()
 
         // TODO: Draw everything that requires to be drawn at this point, maybe UI?
 
-    s_SceneManager.getCurrentScene()->drawUI(virtualMouse);
+    s_SceneManager.getCurrentScene()->drawUI(transform);
 
     EndDrawing();
     //----------------------------------------------------------------------------------  

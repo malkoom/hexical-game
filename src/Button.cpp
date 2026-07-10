@@ -7,6 +7,8 @@
 
 void Button::draw()
 {
+    GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, ColorToInt(m_Color));
+    GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, ColorToInt(BLACK));
     m_Pressed = GuiButton(m_Rectangle, m_Text);
 }
 

@@ -6,6 +6,8 @@
 #define JUEGO_RAYLIB_SCENE_HPP
 #include "raylib.h"
 
+struct ScreenTransform;
+
 class Scene {
 public:
     virtual ~Scene() = default;
@@ -13,7 +15,7 @@ public:
     virtual void init() = 0;
     virtual void update(const Vector2& virtualMouse) = 0;
     virtual void draw(const Vector2& virtualMouse) = 0;
-    virtual void drawUI(const Vector2& realScreenSize) = 0;
+    virtual void drawUI(const ScreenTransform& transform) = 0;
 };
 
 

@@ -8,6 +8,8 @@
 #include "Shape.hpp"
 #include "raylib.h"
 
+struct ScreenTransform;
+
 class Shooter {
 private:
     Shape* m_CurrentShape{nullptr};
@@ -18,7 +20,7 @@ private:
 public:
     void handleInput(const Vector2& virtualMouse);
     void update();
-    void draw(const Vector2& virtualMouse);
+    void draw(const ScreenTransform& transform);
     void setCurrentShape(Shape* shape);
 };
 
