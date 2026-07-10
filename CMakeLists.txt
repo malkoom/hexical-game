@@ -57,17 +57,17 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(EMSCRIPTEN)
-    # Forzamos a que el archivo de salida termine en .html en lugar de .js
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
 
-    # Configuramos las opciones de enlazado correctas para Emscripten
     target_link_options(${PROJECT_NAME} PRIVATE
             "--shell-file=${CMAKE_SOURCE_DIR}/src/minshell.html"
             "-sUSE_GLFW=3"
             "-sASYNCIFY"
-            # ✅ EMPAQUETADO VIRTUAL DE ASSETS PARA WEB:
-            # Esto mapea tu carpeta de recursos del disco real al sistema virtual del navegador
             "--preload-file=${CMAKE_SOURCE_DIR}/resources@/resources"
+            # ✅ SOLUCIÓN AL CUELGUE: Permitimos que la memoria crezca dinámicamente si los assets pesan
+            "-sALLOW_MEMORY_GROWTH=1"
+            # Le damos un bloque inicial de 64MB en lugar de los 16MB por defecto
+            "-sINITIAL_MEMORY=67108864"
     )
 endif()
 
