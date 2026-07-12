@@ -19,6 +19,7 @@
 #include "../external/raygui.h"
 #include "managers/GameUIManager.hpp"
 #include "managers/SceneManager.hpp"
+#include "managers/SoundManager.hpp"
 
 
 #if defined(PLATFORM_WEB)
@@ -82,7 +83,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(virtualWidth, virtualHeight, "Hexical");
+    InitWindow(720, 720, "Hexical");
     
     // TODO: Load resources / Initialize variables at this point
     s_SceneManager.pushScene(new MenuScene{});
@@ -119,6 +120,7 @@ int main(void)
     // TODO: Unload all loaded resources at this point
 
     CloseWindow();        // Close window and OpenGL context
+    s_SoundManager.kill();
     //--------------------------------------------------------------------------------------
 
     return 0;
@@ -131,6 +133,7 @@ int main(void)
 void InitGame(Scene* scene)
 {
     scene->init();
+    s_SoundManager.init();
 }
 
 // Update and draw frame

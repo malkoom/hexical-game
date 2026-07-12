@@ -17,15 +17,5 @@ void Sprite::init()
 
 void Sprite::draw()
 {
-    DrawTextureEx(m_Texture, m_Position, 0, m_Scale, m_Color);
-}
-
-void Sprite::setPosition(const Vector2& position)
-{
-    m_Position = position;
-}
-
-Vector2 Sprite::getPosition() const
-{
-    return m_Position;
+    DrawTextureEx(m_Texture, m_Position, 0, 0.05* m_Scale, m_Color);
 }

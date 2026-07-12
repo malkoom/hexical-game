@@ -23,8 +23,12 @@ public:
 
     void init();
     void draw();
-    void setPosition(const Vector2& position);
-    Vector2 getPosition() const;
+
+    Vector2 getPosition() const {return m_Position; };
+    float getScale() const {return m_Scale; };
+
+    void setPosition(const Vector2& position) { m_Position = position; };
+    void setScale(float scale) { m_Scale = scale; };
 };
 
 #endif //JUEGO_RAYLIB_SPRITE_HPP

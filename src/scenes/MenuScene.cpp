@@ -11,11 +11,19 @@
 void MenuScene::init()
 {
     GuiSetStyle(DEFAULT, TEXT_SIZE, 48);
-    m_PlayBtn.setPosition({(float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2});
-    m_ExitBtn.setPosition({(float)GetScreenWidth() / 2, (float)GetScreenHeight() / 2 + 300});
+
+    float virtualCenterX = 1920.0f / 2.0f;
+    float virtualCenterY = 1920.0f / 2.0f;
+
+    // Colocamos el botón de Play en todo el centro virtual
+    m_PlayBtn.setPosition({ virtualCenterX, virtualCenterY });
+
+    // El botón de salir 200 unidades virtuales más abajo
+    m_ExitBtn.setPosition({ virtualCenterX, virtualCenterY + 300.0f });
 
     Color neonPink   = GetColor(0xff6973ff);
     Color neonCyan   = GetColor(0x00b9beff);
+
     m_PlayBtn.setColor(neonPink);
     m_ExitBtn.setColor(neonCyan);
 }
@@ -117,61 +125,69 @@ void MenuScene::draw(const Vector2 &virtualMouse)
 
 void MenuScene::drawUI(const ScreenTransform& transform)
 {
-    // Control del tiempo para efectos de parpadeo y animación sutil
     float time = (float)GetTime();
 
-    // 1. CONFIGURACIÓN DE LA FUENTE Y PARÁMETROS
     const char* titleText = "HEXICAL";
-    int fontSize = 160;       // Un tamaño imponente para el menú principal
-    float spacing = 12.0f;    // Espaciado ancho de estilo futurista/industrial
+    float baseFontSize = 160.0f;
+    float baseSpacing = 12.0f;
 
-    // Medimos el texto para poder centrarlo milimétricamente
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), titleText, (float)fontSize, spacing);
-    Vector2 centerPos = { 1920.0f / 2.0f, 350.0f }; // Centrado horizontal, ubicado en la parte superior
+    // Escalar tipografía a la resolución actual
+    float finalFontSize = baseFontSize * transform.scale;
+    float finalSpacing = baseSpacing * transform.scale;
+
+    Vector2 textSize = MeasureTextEx(GetFontDefault(), titleText, finalFontSize, finalSpacing);
+
+    // Mapear el centro virtual (1920x1920) a la pantalla física
+    Vector2 virtualCenterPos = { 1920.0f / 2.0f, 350.0f };
+    Vector2 centerPos = {
+        (virtualCenterPos.x * transform.scale) + transform.offset.x,
+        (virtualCenterPos.y * transform.scale) + transform.offset.y
+    };
     Vector2 origin = { textSize.x / 2.0f, textSize.y / 2.0f };
 
-    // Paleta de colores neón sincronizada con tus figuras
     Color neonPink   = GetColor(0xff6973ff);
     Color neonCyan   = GetColor(0x00b9beff);
     Color darkPurple = GetColor(0x46425eff);
 
-    // 2. EFECTO PULSO GEOMÉTRICO (Marco de fondo)
-    // Un hexágono decorativo sutil detrás del texto que "respira"
-    float pulse = sinf(time * 3.0f) * 10.0f;
-    DrawPolyLinesEx(centerPos, 6, (textSize.x / 2.0f) + 40.0f + pulse, time * 10.0f, 3.0f, ColorAlpha(neonCyan, 0.2f));
+    // Hexágono de fondo latiendo en el centro
+    float pulse = sinf(time * 3.0f) * 10.0f * transform.scale;
+    float baseRadius = (textSize.x / 2.0f) + (40.0f * transform.scale);
+    float finalThickness = 3.0f * transform.scale;
+    DrawPolyLinesEx(centerPos, 6, baseRadius + pulse, time * 10.0f, finalThickness, ColorAlpha(neonCyan, 0.2f));
 
-    // 3. CAPA 1: Sombra Proyectada Estilo Glitch (Desplazada hacia abajo a la derecha)
-    Vector2 shadowPos = { centerPos.x + 6.0f, centerPos.y + 6.0f };
-    DrawTextPro(GetFontDefault(), titleText, shadowPos, origin, 0.0f, (float)fontSize, spacing, ColorAlpha(darkPurple, 0.5f));
+    // Capa 1: Sombra proyectada (estilo glitch oscuro)
+    float shadowOffset = 6.0f * transform.scale;
+    Vector2 shadowPos = { centerPos.x + shadowOffset, centerPos.y + shadowOffset };
+    DrawTextPro(GetFontDefault(), titleText, shadowPos, origin, 0.0f, finalFontSize, finalSpacing, ColorAlpha(darkPurple, 0.5f));
 
-    // 4. CAPA 2: Aberración Cromática Sutil (Efecto canal de color desfasado)
-    // El texto rosa se desplaza horizontalmente imitando un fallo de monitor CRT
-    float glitchOffset = sinf(time * 20.0f) * cosf(time * 5.0f) * 4.0f;
-    // Solo hace el glitch fuerte de vez en cuando de forma matemática
-    if (sinf(time * 10.0f) > 0.95f) glitchOffset *= 3.0f;
+    // Capa 2: Aberración cromática (desfase rosa emulando CRT)
+    float glitchOffset = sinf(time * 20.0f) * cosf(time * 5.0f) * 4.0f * transform.scale;
+    if (sinf(time * 10.0f) > 0.95f) glitchOffset *= 3.0f; // Pico de interferencia aleatorio
 
     Vector2 glitchPos = { centerPos.x - glitchOffset, centerPos.y };
-    DrawTextPro(GetFontDefault(), titleText, glitchPos, origin, 0.0f, (float)fontSize, spacing, ColorAlpha(neonPink, 0.6f));
+    DrawTextPro(GetFontDefault(), titleText, glitchPos, origin, 0.0f, finalFontSize, finalSpacing, ColorAlpha(neonPink, 0.6f));
 
-    // 5. CAPA 3: Texto Principal Hiper-Brillante
-    // El color principal es un blanco roto translúcido que deja ver el entramado de fondo
-    DrawTextPro(GetFontDefault(), titleText, centerPos, origin, 0.0f, (float)fontSize, spacing, BLACK);
+    // Capa 3: Texto principal
+    DrawTextPro(GetFontDefault(), titleText, centerPos, origin, 0.0f, finalFontSize, finalSpacing, BLACK);
 
-
+    // Subtítulo
     const char* subText = "- GEOMETRIC MERGE GAME -";
-    int subFontSize = 35;
-    float subSpacing = 4.0f;
-    Vector2 subTextSize = MeasureTextEx(GetFontDefault(), subText, (float)subFontSize, subSpacing);
-    Vector2 subPos = { centerPos.x, centerPos.y + (textSize.y / 2.0f) + 40.0f };
+    float baseSubFontSize = 35.0f;
+    float baseSubSpacing = 4.0f;
+
+    float finalSubFontSize = baseSubFontSize * transform.scale;
+    float finalSubSpacing = baseSubSpacing * transform.scale;
+
+    Vector2 subTextSize = MeasureTextEx(GetFontDefault(), subText, finalSubFontSize, finalSubSpacing);
+    Vector2 subPos = { centerPos.x, centerPos.y + (textSize.y / 2.0f) + (40.0f * transform.scale) };
     Vector2 subOrigin = { subTextSize.x / 2.0f, subTextSize.y / 2.0f };
 
-
+    // Efecto parpadeo
     float blink = sinf(time * 4.0f);
     Color subColor = (blink > 0.0f) ? neonPink : ColorAlpha(neonPink, 0.5f);
 
-    DrawTextPro(GetFontDefault(), subText, subPos, subOrigin, 0.0f, (float)subFontSize, subSpacing, subColor);
+    DrawTextPro(GetFontDefault(), subText, subPos, subOrigin, 0.0f, finalSubFontSize, finalSubSpacing, subColor);
 
-    m_PlayBtn.draw();
-
-    m_ExitBtn.draw();
+    m_PlayBtn.draw(transform);
+    m_ExitBtn.draw(transform);
 }

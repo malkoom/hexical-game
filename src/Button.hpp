@@ -6,6 +6,8 @@
 #define JUEGO_RAYLIB_BUTTON_HPP
 #include "raylib.h"
 
+struct ScreenTransform;
+
 class Button {
 private:
     bool m_Pressed;
@@ -31,7 +33,7 @@ public:
     void setSize(const Vector2 &size);
     void setColor(const Color& color) { m_Color = color; }
 
-    void draw();
+    void draw(const ScreenTransform& transform);
     bool isPressed();
 
 };

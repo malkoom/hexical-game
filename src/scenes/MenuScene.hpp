@@ -10,8 +10,8 @@
 
 class MenuScene : public Scene{
 private:
-    Button m_PlayBtn{ false, "Play", {1920 / 2, 1920 / 2}, {400, 150}, GRAY};
-    Button m_ExitBtn{ false, "Quit", {1920 / 2, 1920 * 3 / 4}, {400, 150}, GRAY};
+    Button m_PlayBtn{ false, "Play", {720 / 2, 720 / 2}, {400, 150}, GRAY};
+    Button m_ExitBtn{ false, "Quit", {720 / 2, 720 * 3 / 4}, {400, 150}, GRAY};
 
 public:
     ~MenuScene() override = default;

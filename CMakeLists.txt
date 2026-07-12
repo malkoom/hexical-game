@@ -40,6 +40,8 @@ add_executable(${PROJECT_NAME}
         src/managers/GameUIManager.hpp
         src/Obstacle.cpp
         src/Obstacle.hpp
+        src/managers/SoundManager.cpp
+        src/managers/SoundManager.hpp
 )
 
 # Definir que estamos en Escritorio (Para los #ifdef PLATFORM_DESKTOP)
@@ -57,18 +59,18 @@ if(UNIX AND NOT APPLE)
 endif()
 
 if(EMSCRIPTEN)
-    # Forzamos a que el archivo de salida termine en .html en lugar de .js
     set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "index")
 
-    # Forzar la inyección de los flags globales de memoria en el enlazador de Emscripten
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -sALLOW_MEMORY_GROWTH=1 -sINITIAL_MEMORY=67108864")
-
-    # Configuramos el resto de opciones específicas del target
+    # ✅ Usamos exactamente la terminología nativa de Raylib: -sTOTAL_MEMORY y -sSTACK_SIZE
     target_link_options(${PROJECT_NAME} PRIVATE
             "--shell-file=${CMAKE_SOURCE_DIR}/src/minshell.html"
             "-sUSE_GLFW=3"
             "-sASYNCIFY"
             "--preload-file=${CMAKE_SOURCE_DIR}/resources@/resources"
+            "-sUSE_WEBGL2=1"
+            "-sTOTAL_MEMORY=134217728"    # 128 MB fijos (Contenta a WebGL sin ALLOW_MEMORY_GROWTH)
+            "-sSTACK_SIZE=1048576"       # 1 MB de Stack real forzado
     )
 endif()
 

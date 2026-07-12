@@ -3,6 +3,7 @@
 #define JUEGO_RAYLIB_GAMEUIMANAGER_HPP
 
 #include "../scenes/Sprite.hpp"
+#include "../Button.hpp"
 
 struct ScreenTransform {
     float scale;
@@ -11,6 +12,8 @@ struct ScreenTransform {
 
 class GameUIManager {
 private:
+    Button m_BackButton{false, "MENU", Vector2{1920/2, 75}, Vector2{200, 100}, RAYWHITE};
+
     int m_Score{0};
     int m_Hearts{0};
     Sprite m_HeartSprite{"resources/images/heart.png", {10, 10}, 0.05f, GetColor(0xffffff88)};

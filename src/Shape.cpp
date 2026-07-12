@@ -7,6 +7,7 @@
 #include "managers/GameManager.hpp"
 #include "raymath.h"
 #include "managers/GameManager.hpp"
+#include "managers/SoundManager.hpp"
 
 bool IsOutOfBounds(const Vector2& position, float radius);
 
@@ -19,7 +20,7 @@ void Shape::update()
 
     if (IsOutOfBounds(m_Position, m_Size)) Dead = true;
 
-    if (fabsf(m_Velocity.x) > 0.2f || fabsf(m_Velocity.y) > 0.2f) {
+    if (fabsf(m_Velocity.x) > 0.5f || fabsf(m_Velocity.y) > 0.5f) {
         Moving = true;
         for (auto& other : s_GameManager.Shapes) {
 
@@ -40,7 +41,10 @@ void Shape::update()
             }
         }
     } else {
-        if (Moving && !Pushed) s_GameManager.setHealth(s_GameManager.Health - 1); // No chocó con nadie
+        if (Moving && !Pushed) {
+            s_GameManager.setHealth(s_GameManager.Health - 1); // No chocó con nadie
+            s_SoundManager.playSound("minus-life");
+        }
         m_Velocity = Vector2Zero();
         Moving = false;
         Pushed = false;
@@ -59,7 +63,6 @@ void Shape::update()
             ++it;
         }
     }
-
 
     if (Dead) {
         s_GameManager.setHealth(0);
@@ -98,14 +101,17 @@ bool Shape::processCollisionWithEqualShape(Shape &shape)
     shape.m_Velocity = m_Velocity;
     m_Velocity = Vector2Zero();
 
-    // 3. Figura aumenta
-    TraceLog(LOG_INFO, "¡Figuras separadas y colisión resuelta!");
+    // Figura aumenta
+    TraceLog(LOG_INFO, "Figuras del mismo tipo colisionan");
     shape.advanceShape();
 
     m_Fragments = this->shatter();
     m_Collided = true;
     Pushed = true;
     shape.Pushed = true;
+
+    // Sonido
+    s_SoundManager.playSound("pop");
 
 
     return true;
@@ -140,6 +146,8 @@ bool Shape::processCollisionWithDifferentShape(Shape &shape)
     m_Velocity = Vector2Negate(m_Velocity);
     Pushed = true;
 
+    // Sonido
+    s_SoundManager.playSound("miss");
 
     return true;
 }

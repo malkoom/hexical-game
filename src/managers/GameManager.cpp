@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include "SceneManager.hpp"
+#include "SoundManager.hpp"
 
 void GameManager::reset()
 {
@@ -28,6 +29,7 @@ void GameManager::update()
         Score = 0;
         Health = 3;
         NumObstacles = 2;
+        s_SoundManager.playSound("game-over");
         s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
     }
 
@@ -50,6 +52,7 @@ void GameManager::update()
     {
         if (shape.getType() > ShapeType::HEXAGON) {
             UIManager.setHexical(true);
+            s_SoundManager.playSound("hexical");
         }
         shape.update();
     }

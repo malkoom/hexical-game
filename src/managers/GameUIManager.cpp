@@ -3,13 +3,17 @@
 #include "../external/raygui.h"
 #include <string>
 
+#include "SceneManager.hpp"
+
 void GameUIManager::init()
 {
     m_HeartSprite.init();
+    m_BackButton.setColor(ColorAlpha(RAYWHITE, 0.2f));
 }
 
 void GameUIManager::draw(const ScreenTransform& transform)
 {
+    m_BackButton.draw(transform);
     drawHearts(transform);
     drawScore(transform);
 
@@ -29,6 +33,7 @@ void GameUIManager::drawHearts(const ScreenTransform& transform)
             (heartVirtualPos.x * transform.scale) + transform.offset.x,
             (heartVirtualPos.y * transform.scale) + transform.offset.y
         };
+        m_HeartSprite.setScale(transform.scale);
         m_HeartSprite.setPosition(heartScreenPos);
         m_HeartSprite.draw();
     }
@@ -38,7 +43,7 @@ void GameUIManager::drawHearts(const ScreenTransform& transform)
 
 void GameUIManager::drawScore(const ScreenTransform& transform)
 {
-    GuiSetStyle(DEFAULT, TEXT_SIZE, (int)(48 * transform.scale));
+    GuiSetStyle(DEFAULT, TEXT_SIZE, (int)(64 * transform.scale));
     std::string scoreText = "Score: " + std::to_string(m_Score);
 
     Vector2 scoreVirtualPos = {1600.0f, 50.0f};
@@ -83,4 +88,7 @@ void GameUIManager::drawHexical(const ScreenTransform& transform)
 
 void GameUIManager::update()
 {
+    if (m_BackButton.isPressed()) {
+        s_SceneManager.setCurrentScene(SceneType::MENU_SCENE);
+    }
 }

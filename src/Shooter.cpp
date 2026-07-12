@@ -7,6 +7,8 @@
 #include "managers/GameManager.hpp"
 #include <algorithm>
 
+#include "managers/SoundManager.hpp"
+
 void Shooter::handleInput(const Vector2& virtualMouse)
 {
     if (!m_CanShoot) return;
@@ -33,8 +35,10 @@ void Shooter::handleInput(const Vector2& virtualMouse)
         if (m_CurrentShape)
         {
             m_CurrentShape->shoot(virtualMouse);
+            s_SoundManager.playSound("swish");
         }
         m_CurrentShape = nullptr;
+
     }
 }
 
