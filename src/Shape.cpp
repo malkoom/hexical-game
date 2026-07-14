@@ -38,6 +38,9 @@ void Shape::update()
         for (auto& obstacle : s_GameManager.Obstacles) {
             if (CheckCollisionCircles(m_Position, m_Size, obstacle.getPosition(), obstacle.getSize())) {
                 m_Velocity = obstacle.getReflectedCollision(m_Position, m_Velocity);
+                // Lo separamos un poco por un bug de la colisión con el obstaculo
+                m_Position.x += 0.1 * m_Velocity.x;
+                m_Position.y += 0.1 * m_Velocity.y;
             }
         }
     } else {
@@ -98,7 +101,11 @@ bool Shape::processCollisionWithEqualShape(Shape &shape)
 
     // Físicas
     // Al chocar, la otra gana la velocidad y esta la pierde
-    shape.m_Velocity = m_Velocity;
+    Vector2 newVelocity = Vector2Normalize(Vector2Subtract(m_Position, shape.m_Position));
+    newVelocity.x *= Vector2Length(m_Velocity);
+    newVelocity.y *= Vector2Length(m_Velocity);
+
+    shape.m_Velocity = Vector2Negate(newVelocity);
     m_Velocity = Vector2Zero();
 
     // Figura aumenta
@@ -142,8 +149,13 @@ bool Shape::processCollisionWithDifferentShape(Shape &shape)
 
     // Físicas
     // Al chocar, la otra gana la velocidad y esta la pierde
-    shape.m_Velocity = m_Velocity;
-    m_Velocity = Vector2Negate(m_Velocity);
+    Vector2 newVelocity = Vector2Normalize(Vector2Subtract(m_Position, shape.m_Position));
+    newVelocity.x *= Vector2Length(m_Velocity);
+    newVelocity.y *= Vector2Length(m_Velocity);
+
+    shape.m_Velocity = Vector2Negate(newVelocity);
+    m_Velocity = newVelocity;
+
     Pushed = true;
 
     // Sonido

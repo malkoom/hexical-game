@@ -1,7 +1,3 @@
-//
-// Created by marc on 8/7/26.
-//
-
 #ifndef JUEGO_RAYLIB_MENUSCENE_HPP
 #define JUEGO_RAYLIB_MENUSCENE_HPP
 #include "Scene.hpp"
@@ -10,8 +6,13 @@
 
 class MenuScene : public Scene{
 private:
-    Button m_PlayBtn{ false, "Play", {720 / 2, 720 / 2}, {400, 150}, GRAY};
-    Button m_ExitBtn{ false, "Quit", {720 / 2, 720 * 3 / 4}, {400, 150}, GRAY};
+    Button m_PlayBtn{ false, "Play", {1920 / 2, 1920 / 4}, {400, 150}, GRAY};
+    Button m_ExitBtn{ false, "Quit", {1920 / 2, 1920 * 3 / 4}, {400, 150}, GRAY};
+    Button m_VolumeButton {false, "Volume", {1920/2, 1920/2}, {400, 150}, GRAY};
+    Button m_TutorialBtn {false, "INFO", {1700, 100}, {300, 100}, GRAY}; // Esquina superior derecha
+
+    bool m_ShowTutorial{ false };
+    void drawTutorialWindow(const ScreenTransform& transform);
 
 public:
     ~MenuScene() override = default;
@@ -19,10 +20,6 @@ public:
     void update(const Vector2 &virtualMouse) override;
     void draw(const Vector2 &virtualMouse) override;
     void drawUI(const ScreenTransform& transform) override;
-
 };
-
-
-
 
 #endif //JUEGO_RAYLIB_MENUSCENE_HPP

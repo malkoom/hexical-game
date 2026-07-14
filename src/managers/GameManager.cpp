@@ -27,7 +27,7 @@ void GameManager::update()
     // Reset si no tenemos vida
     if (Health == 0) {
         Score = 0;
-        Health = 3;
+        Health = 5;
         NumObstacles = 2;
         s_SoundManager.playSound("game-over");
         s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
@@ -42,7 +42,7 @@ void GameManager::update()
 
     if (Shapes.empty()) {
         Score++;
-        Health++;
+        Health += 2;
         NumObstacles++;
         s_SceneManager.setCurrentScene(SceneType::GAME_SCENE);
     }

@@ -38,7 +38,12 @@ void Shooter::handleInput(const Vector2& virtualMouse)
             s_SoundManager.playSound("swish");
         }
         m_CurrentShape = nullptr;
+    }
 
+    if (IsMouseButtonReleased(MOUSE_RIGHT_BUTTON) && m_IsAiming)
+    {
+        m_IsAiming = false;
+        m_CurrentShape = nullptr;
     }
 }
 

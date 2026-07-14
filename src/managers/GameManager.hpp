@@ -17,7 +17,7 @@ public:
     std::vector<Shape> Shapes {};
     std::vector<Obstacle> Obstacles{};
     GameUIManager UIManager{0, 0};
-    int Health{3};
+    int Health{5};
     int Score{0};
     int NumObstacles{2};
 

@@ -5,6 +5,7 @@
 #ifndef JUEGO_RAYLIB_BUTTON_HPP
 #define JUEGO_RAYLIB_BUTTON_HPP
 #include "raylib.h"
+#include <string>
 
 struct ScreenTransform;
 
@@ -32,6 +33,7 @@ public:
     void setPosition(const Vector2 &position) { m_Rectangle.x = position.x - m_Rectangle.width / 2; m_Rectangle.y = position.y - m_Rectangle.height / 2;};
     void setSize(const Vector2 &size);
     void setColor(const Color& color) { m_Color = color; }
+    void setText(char* text) { m_Text = text; };
 
     void draw(const ScreenTransform& transform);
     bool isPressed();
