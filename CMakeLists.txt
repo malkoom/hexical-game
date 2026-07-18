@@ -12,8 +12,16 @@ if(DEFINED ENV{GITHUB_ACTIONS})
     # En GitHub Actions, le diremos que lo busque al mismo nivel (../raylib)
     add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/../raylib ${CMAKE_BINARY_DIR}/raylib)
 else()
-    # En tu Fedora local, sigue buscando en tu ruta absoluta externa de siempre
-    add_subdirectory("/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib" ${CMAKE_BINARY_DIR}/raylib)
+    if(EXISTS "/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib")
+      # En tu Fedora local, sigue buscando en tu ruta absoluta externa de siempre
+      add_subdirectory("/home/marc/Documentos/ProyectosMios/Raylib/raylib-gamejam/raylib" ${CMAKE_BINARY_DIR}/raylib)
+  else()
+      find_package(PkgConfig REQUIRED)
+      pkg_check_modules(RAYLIB REQUIRED IMPORTED_TARGET raylib)
+      
+      add_library(raylib INTERFACE IMPORTED)
+      target_link_libraries(raylib INTERFACE PkgConfig::RAYLIB)
+  endif()
 endif()
 
 # Definir nuestro ejecutable y sus archivos fuentes (.cpp)
