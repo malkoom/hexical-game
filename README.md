@@ -36,7 +36,6 @@ Keyboard:
 
 ### License
 
-This project sources are licensed under an unmodified zlib/libpng license, which is an OSI-certified, BSD-like license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
-
+All rights reserved. You are welcome to view the code and submit Pull Requests to improve the project, but you may not redistribute, sub-license, or create public derivative works outside of this repository.
 
 *Copyright (c) 2026 Marcos Matutes (@malkoom)*
